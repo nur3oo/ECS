@@ -1,0 +1,22 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 80
+
+USER node              
+
+CMD ["node", "app.js"]
+
+# Second Stage
+
+FROM node:alpine
+
+WORKDIR /app
+
