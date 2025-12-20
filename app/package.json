@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/nur3oo/ECS/issues"
   },
-  "homepage": "https://github.com/nur3oo/ECS#readme"
+  "homepage": "https://github.com/nur3oo/ECS#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.948.0",
+    "express": "^5.2.1"
+  }
 }
-

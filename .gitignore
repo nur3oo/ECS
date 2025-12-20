@@ -1,3 +1,14 @@
 .env
 .env.*
 *node_modules
+.tfstate
+.tfstate*
+.tfvars
+.tvars.json
+.terraform/
+*.tfvars
+*.tfvars.json
+Thumbs.db
+.log
+*.tfplan
+.terraform.lock.hcl
