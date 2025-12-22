@@ -1,14 +1,13 @@
-version: '18.19.1'
 
 services:
   web:
     build: .
     ports:
-      -"80:80"
+      -"8080:8080"
     depends_on:
       -  redis
 
 redis:
   image: "redis:latest"
   ports:
-    - "80:80"          
+    - "6379:6379"      
