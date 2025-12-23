@@ -12,3 +12,5 @@ Thumbs.db
 .log
 *.tfplan
 .terraform.lock.hcl
+LICENSE.txt
+modules.json

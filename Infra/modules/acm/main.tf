@@ -7,8 +7,6 @@ provider "cloudflare" {
 }
 
 
-
-
 resource "aws_acm_certificate" "cert" {
   domain_name       = var.aws_acm_certificate
   validation_method = var.validation_method
