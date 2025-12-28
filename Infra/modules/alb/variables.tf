@@ -40,7 +40,7 @@ variable "health_check_matcher" {
     type = string
 }
 
-variable "private_subnetS_id" {
+variable "private_subnets_id" {
     type = string
   
 }
@@ -50,3 +50,13 @@ variable "container_port" {
   
 }
 
+
+variable "certificate_arn" {
+    type = string
+  
+}
+
+variable "target_group_arn" {
+    type = string
+  
+}

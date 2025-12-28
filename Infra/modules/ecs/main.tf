@@ -3,35 +3,47 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   # creating the cluster
 }
 
-resource "aws_ecs_task_definition" "main" {
-  family                   = var.app
-  requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
-  cpu                      = var.cpu
-  memory                   = var.memory
-  execution_role_arn       = var.task_execution_role_arn
-
-  # shows what image i will be running which ports etc
-  container_definitions = jsonencode([
-    {
-      name      = var.container_name
-      image     = "${var.ecr_repository_url}:${var.image_tag}"
-      essential = true
-      portMappings = [
-        {
-          containPort = var.container_port
-          protocol      = "tcp"
-        }
-      ]
-    }
-  ])
-}
-
 resource "aws_cloudwatch_log_group" "this" {
   name              = var.log_group_name
   retention_in_days = var.retention_in_days
   # container logs
 }
+
+
+resource "aws_ecs_task_definition" "main" {
+  family                   = var.app
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu        = var.cpu
+  memory                   = var.memory
+  execution_role_arn       = var.task_execution_role_arn
+
+  container_definitions = jsonencode([
+    {
+      name      = var.container_name
+      image     = "${var.ecr_repository_url}:${var.image_tag}"
+      essential = true
+
+      portMappings = [
+        {
+          containerPort = var.container_port
+          protocol      = "tcp"
+        }
+      ]
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.this.name
+          "awslogs-region"        = var.aws_region
+          "awslogs-stream-prefix" = var.container_name
+        }
+      }
+    }
+  ])
+}
+
+
 
 resource "aws_ecs_service" "main" {
   name            = var.service_name

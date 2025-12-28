@@ -32,11 +32,11 @@ variable "private_subnet_ids" {
 
 variable "service_name" {
     type = string
-  
 }
 
 variable "aws_region" {
     type = string
+    default = "eu-west-1"
   
 }
 
@@ -87,4 +87,8 @@ variable "image_tag" {
     type = string
     default = "latest"
   
+}
+
+variable "db_password_secret_arn" {
+  type = string
 }

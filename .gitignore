@@ -14,3 +14,5 @@ Thumbs.db
 .terraform.lock.hcl
 LICENSE.txt
 modules.json
+terraform.tfstate.backup
+terraform.tfstate
