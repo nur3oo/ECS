@@ -8,10 +8,6 @@ variable "app" {
   
 }
 
-variable "execution_role_arn" {
-    type = string
-  
-}
 
 variable "container_port" {
     type = string
@@ -19,6 +15,7 @@ variable "container_port" {
 
 variable "container_name" {
     type = string
+    default = "ecs"
 }
 
 variable "ecr_image" {
@@ -27,7 +24,6 @@ variable "ecr_image" {
 
 variable "private_subnet_ids" {
     type = list(string)
-  
 }
 
 variable "service_name" {
@@ -40,10 +36,6 @@ variable "aws_region" {
   
 }
 
-variable "container_port" {
-    type = number
-  
-}
 
 variable "log_group_name" {
     type = string
@@ -60,11 +52,11 @@ variable "task_execution_role_arn" {
 }
 
 variable "cpu" {
-    type = number
+    type = string
 }
 
 variable "memory" {
-    type = number
+    type = string
   
 }
 
@@ -91,4 +83,9 @@ variable "image_tag" {
 
 variable "db_password_secret_arn" {
   type = string
+}
+
+variable "execution_role_arn" {
+    type = string
+  
 }
