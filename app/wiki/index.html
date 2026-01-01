@@ -1,99 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automotive Excellence</title>
+    <title>Outline Wiki</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
-
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em 0;
+            background-color: #2f3542;
+            color: white;
+            padding: 1rem;
             text-align: center;
         }
-
         main {
-            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            padding: 1rem;
         }
-
-        section {
-            margin-bottom: 20px;
-            background-color: #fff;
-            padding: 15px;
+        .wiki-link {
+            display: block;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: white;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: #2f3542;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        h2 {
-            color: #333;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-
-        p {
-            line-height: 1.6;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1em 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .wiki-link:hover {
+            background: #f1f1f1;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to the World of Automotive</h1>
-        <p>Exploring the evolution, innovation, and impact of automobiles.</p>
-    </header>
+<header>
+    <h1>📚 Outline Wiki</h1>
+    <p>Your team knowledge base</p>
+</header>
 
-    <main>
+<main>
+    <h2>Recent Wiki Pages</h2>
+    <div id="wiki-list">
+        <!-- Wiki links will be injected here -->
+    </div>
+</main>
 
-        <section>
-            <h2>A Brief History</h2>
-            <p>The automobile has revolutionized transportation, changing the way we live and work. From the early steam-powered vehicles to the sophisticated electric and hybrid models of today, the evolution of the car is a testament to human ingenuity. The early 20th century saw the mass production of automobiles, making them accessible to a wider audience.</p>
-            <img src="placeholder-car-image-1.jpg" alt="Early Automobile">
-        </section>
+<script>
+    // Example: Fetch pages from Outline API (requires API token)
+    const API_URL = "https://your-outline-instance.com/api/documents.list";
+    const API_TOKEN = "YOUR_API_TOKEN_HERE"; // Keep this secure
 
-        <section>
-            <h2>Modern Automotive Technology</h2>
-            <p>Today's automobiles are packed with advanced technology. Features such as advanced driver-assistance systems (ADAS), infotainment systems, and fuel-efficient engines are commonplace. The development of electric vehicles (EVs) and hybrid vehicles represents a significant shift towards sustainable transportation.</p>
-            <img src="placeholder-car-image-2.jpg" alt="Modern Car with Technology">
-        </section>
+    async function loadWikiPages() {
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${API_TOKEN}`
+                },
+                body: JSON.stringify({ limit: 5 })
+            });
 
-        <section>
-            <h2>The Future of Automobiles</h2>
-            <p>The automotive industry is rapidly evolving. Autonomous driving, connected cars, and alternative fuel technologies are set to reshape the future.  Innovations in materials science and manufacturing processes are also contributing to lighter, safer, and more efficient vehicles.</p>
-            <img src="placeholder-car-image-3.jpg" alt="Future Car Design">
-        </section>
+            if (!response.ok) throw new Error("Failed to fetch wiki pages");
 
-    </main>
+            const data = await response.json();
+            const listContainer = document.getElementById("wiki-list");
 
-    <footer>
-        <p>&copy; 2024 Automotive Enthusiasts. All rights reserved.</p>
-    </footer>
+            data.data.forEach(doc => {
+                const link = document.createElement("a");
+                link.href = `https://your-outline-instance.com/doc/${doc.urlId}`;
+                link.textContent = doc.title;
+                link.className = "wiki-link";
+                listContainer.appendChild(link);
+            });
+        } catch (error) {
+            console.error(error);
+            document.getElementById("wiki-list").innerHTML = "<p>Unable to load wiki pages.</p>";
+        }
+    }
+
+    loadWikiPages();
+</script>
 
 </body>
 </html>
-
