@@ -4,6 +4,7 @@ variable "secretsmanager_secret_arns" {
 }
 
 variable "db_password_secret_arn" {
-  type = list(string)
-  default = []
+    type = string
+    sensitive = true
+  
 }

@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "wiki_images" {
 }
 
 //blocks access from pub
-resource "aws_s3_public_access_block" "wiki_images" {
+resource "aws_s3_bucket_public_access_block" "wiki_images" {
 
   bucket = var.bucket
   block_public_acls   = true
@@ -36,3 +36,8 @@ resource "aws_cloudfront_origin_access_control" "wiki_images_oac" {
 //oac naming what resource this is for
 // cloudfront signs request for the s3 for verification
 // s3 uses this for verification
+
+//dynamodb
+
+
+

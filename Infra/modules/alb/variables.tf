@@ -1,6 +1,6 @@
 variable "vpc_id" {
     type = string
-
+  
 }
 
 variable "alb_sg_id" {
@@ -10,6 +10,7 @@ variable "alb_sg_id" {
 
 variable "alb_name" {
     type = string  
+    default = "node-alb"
 }
 
 
@@ -20,11 +21,9 @@ variable "public_subnets_id" {
 
 variable "matcher" {
     type = string
+  
 }
 
-variable "interval" {
-    type = number
-}
 
 
 variable "load_balancer_type" {
@@ -36,12 +35,10 @@ variable "health_check_path" {
     default = "/"
 }
 
-variable "health_check_matcher" {
-    type = string
-}
+
 
 variable "private_subnets_id" {
-    type = string
+    type = list(string)
   
 }
 
@@ -56,7 +53,3 @@ variable "certificate_arn" {
   
 }
 
-variable "target_group_arn" {
-    type = string
-  
-}

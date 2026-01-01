@@ -1,16 +1,10 @@
-variable "ecs_cluster" {
+variable "cluster_name" {
     type = string
-  
 }
-
-variable "app" {
-    type = string
-  
-}
-
 
 variable "container_port" {
-    type = string
+    type = number
+    default = 8080
 }
 
 variable "container_name" {
@@ -26,9 +20,6 @@ variable "private_subnet_ids" {
     type = list(string)
 }
 
-variable "service_name" {
-    type = string
-}
 
 variable "aws_region" {
     type = string
@@ -39,11 +30,12 @@ variable "aws_region" {
 
 variable "log_group_name" {
     type = string
-  
+ 
 }
 
-variable "retention_in_days" {
+variable "log_retention_in_days" {
     type = number
+    default = 7
   
 }
 
@@ -52,11 +44,11 @@ variable "task_execution_role_arn" {
 }
 
 variable "cpu" {
-    type = string
+    type = number
 }
 
 variable "memory" {
-    type = string
+    type = number
   
 }
 
@@ -81,11 +73,18 @@ variable "image_tag" {
   
 }
 
-variable "db_password_secret_arn" {
-  type = string
-}
 
 variable "execution_role_arn" {
     type = string
   
 }
+
+variable "app" {
+  type = string
+  default = "nur-ecs"
+}
+
+variable "service_name" {
+    type = string
+}
+

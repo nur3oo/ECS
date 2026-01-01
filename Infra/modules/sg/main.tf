@@ -7,35 +7,30 @@ resource "aws_security_group" "alb_sg" {    //creates the sg
 ingress {
 
     description = "http from the internet"
-    from_port = var.alb_http_port
-    to_port = var.alb_http_port
+    from_port = 80
+    to_port = 80
     protocol = var.protocol
-    cidr_blocks =  [var.cidr_blocks]
+    cidr_blocks =  ["0.0.0.0/0"]
 }
 
 ingress {
 
   description = "https traffic from the internet" // allows https to the alb
-  from_port = var.alb_https_port
-  to_port = var.alb_https_port
+  from_port = 443
+  to_port = 443
   protocol = var.protocol
-  cidr_blocks = [var.cidr_blocks]
+  cidr_blocks = ["0.0.0.0/0"]
 
     }
-
-
-
-
-
 
 
 egress {
 
   description = "all traffic out of the ALB"
-  from_port = var.egress_port
-  to_port = var.egress_port
-  protocol = var.protocol
-  cidr_blocks= [var.cidr_blocks]
+  from_port = 0
+  to_port = 0
+  protocol = "-1"
+  cidr_blocks= ["0.0.0.0/0"]
     }
 
 }
@@ -51,9 +46,9 @@ resource "aws_security_group" "ECS" {
 ingress {
 
   description = "ALB to the ECS"
-  from_port = var.app_port
-  to_port = var.app_port
-  protocol = var.protocol
+  from_port = 8080
+  to_port = 8080
+  protocol = "tcp"
   security_groups = [ aws_security_group.alb_sg.id ]
 
 
@@ -62,11 +57,11 @@ ingress {
 
 
 egress {
-  description = "allow traffic from the alb"
-  from_port = var.egress_port
-  to_port = var.egress_port
-  protocol = var.protocol
-  cidr_blocks = [var.cidr_blocks]
+  description = "allow traffic to the alb"
+  from_port = 0
+  to_port = 0
+  protocol = -1
+  cidr_blocks = ["0.0.0.0/0"]
 
 
     }

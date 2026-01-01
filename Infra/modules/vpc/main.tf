@@ -1,5 +1,5 @@
 resource "aws_vpc" "main" {
-  cidr_block           = var.vpc_cidr
+  cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
   enable_dns_hostnames = true
 
@@ -16,8 +16,8 @@ data "aws_availability_zones" "available" {
 resource "aws_subnet" "public" {
     count             = var.subnet_count
     vpc_id            = aws_vpc.main.id
-    cidr_block        = cidrsubnet(var.vpc_cidr, 8, count.index)
-    availability_zone = data.aws_availability_zone.available.names[count.index]
+    cidr_block        = var.public_subent_cidrs[count.index]
+    availability_zone = data.aws_availability_zones.available.names[count.index]
     tags   = {
       name = "main"
     }
@@ -29,7 +29,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
     count             = var.subnet_count
     vpc_id            = aws_vpc.main.id
-    cidr_block        = cidrsubnet(var.vpc_cidr, 8, count.index + 10)
+    cidr_block        = var.private_subnet_cidrs[count.index]
     availability_zone = data.aws_availability_zones.available.names[count.index]
  //aws decides what az to use for both pub and priv
 
@@ -56,7 +56,7 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nga" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public.id
+  subnet_id     = aws_subnet.public[0].id
 
   depends_on = [aws_internet_gateway.igw]
 
@@ -64,8 +64,7 @@ resource "aws_nat_gateway" "nga" {
     Name = "pub-nat"
   }
 
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
+ 
 }
 
 resource "aws_route_table" "private" {
@@ -73,7 +72,7 @@ resource "aws_route_table" "private" {
 
    route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
+    nat_gateway_id = aws_nat_gateway.nga.id
   }
 
   tags = {
@@ -99,7 +98,7 @@ resource "aws_route_table" "public" {
 
 resource "aws_route_table_association" "private" {
   count          = var.subnet_count
-  subnet_id      = aws_subnet.private.id
+  subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private.id
 }
 //Associate the priv route table to all private sub
@@ -108,7 +107,7 @@ resource "aws_route_table_association" "private" {
 
 
 resource "aws_route_table_association" "public" {
-  subnet_id       = aws_subnet.public.id
+  subnet_id       = aws_subnet.public[count.index].id
   route_table_id  = aws_route_table.public.id
   count           = var.subnet_count
 }

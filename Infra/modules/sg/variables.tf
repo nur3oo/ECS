@@ -9,29 +9,13 @@ variable "name" {
   default     = "alb"
 }
 
-variable "cidr_blocks" {
-  type = string
-}
+
 
 variable "protocol" {
     type = string
   
 }
 
-variable "to_port" {
-    type = string
-  
-}
-
-variable "from_port" {
-  
-  type = string
-}
-
-variable "egress_port" {
-    type = string
-  
-}
 
 
 variable "alb_http_port" {
@@ -39,10 +23,7 @@ variable "alb_http_port" {
   
 }
 
-variable "alb_https_port" {
-    type = number
-  
-}
+
 
 variable "app_port" {
     type = number

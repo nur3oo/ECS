@@ -2,84 +2,71 @@
 
 variable "app_port" {
   type = number
+  default = 8080
+
 }
 
-variable "egress_port" {
-    type = string 
-}
 
-variable "cidr_blocks" {
-    type = string 
-}
 
 variable "protocol" {
-    type = string  
-}
-
-variable "to_port" {
-    type = string  
-}
-
-variable "from_port" {
     type = string 
+    default = "tcp" 
 }
+
+
 
 variable "alb_http_port" {
-    type = number  
+    type = number
+    default = 0
+  
 }
 
-variable "vpc_id"{
-    type = string  
-}
 
-variable "alb_https_port" {
-    type = string 
-}
-
-//vpc
-
+//vp
 variable "subnet_count" {
-    type = string
-    default = "2"
+    type = number
+    default = 2
   
 }
 
-//iam
-
-variable "db_password_secret_arn" {
-    type = string
+variable "public_subent_cidrs" {
+    type = list(any)
+    default = [ "10.0.1.0/24" ,  "10.0.2.0/24" ]
   
 }
+
+variable "private_subnet_cidrs" {
+    type = list(any)
+    default = [ "10.0.5.0/24" , "10.0.6.0/24" ]
+  
+}
+
+
 
 //alb
 
 variable "load_balancer_type" {
     type = string
+    default = "application"
 }
 
 variable "container_port" {
     type = number
+    default = 8080
 }
 
-variable "interval" {
-    type = number 
-}
 
-variable "health_check_matcher" {
-    type = string
-}
+
 
 variable "alb_name"  {
     type = string
+    default = "alb-node"
 }
 
-variable "target_group_arn" {
-    type = string
-  
-}
 
 variable "matcher"  {
     type = string
+    default = "200"
 }
 
 variable "aws_region" {
@@ -87,60 +74,74 @@ variable "aws_region" {
     default = "eu-west-2"
 }
 
-// acm
-
-variable "task_execution_role_arn" {
-    type = string  
+//ecr
+variable "ecr_image" {
+   type = string
 }
 
-variable "app" {
+variable "image_tag" {
     type = string
+  
 }
 
-variable "retention_in_days" {
-    type = string
-}
+//ecs
 
 variable "log_group_name" {
-    type = string 
+    type = string
+    default = "This"
+  
 }
 
-variable "ecs_cluster" {
+
+variable "cluster_name" {
     type = string
+    default = "ecs"
 }
 
 variable "service_name" {
     type = string
+    default = "name"
+  
 }
 
-variable "ecs_security_group_id" {
-    type = string
-}
 
 variable "container_name" {
     type = string
+    default = "app"
 }
 
 variable "memory" {
-    type = string
+    type = number
+    default = 512
 }
 
 variable "cpu" {
-    type = string 
+    type = number
+    default = 256
 }
 
-variable "execution_role_arn" {
-    type = string
-}
 
-// s3
 
-variable "bucket" {
-    type = string
-}
+
+
+
 
 //acm
 
 variable "domain_name" {
     type = string
+    default = "nur-trade.org"
+}
+
+//iam
+
+variable "db_password_secret_arn" {
+    type = string
+    sensitive = true
+  
+}
+
+variable "execution_role_arn" {
+    type = string
+  
 }

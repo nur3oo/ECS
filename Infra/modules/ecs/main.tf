@@ -1,11 +1,11 @@
-resource "aws_ecs_cluster" "ecs_cluster" {
-  name = var.ecs_cluster
+resource "aws_ecs_cluster" "ecs" {
+  name = var.cluster_name
   # creating the cluster
 }
 
 resource "aws_cloudwatch_log_group" "this" {
   name              = var.log_group_name
-  retention_in_days = var.retention_in_days
+  retention_in_days = var.log_retention_in_days
   # container logs
 }
 
@@ -14,13 +14,14 @@ resource "aws_ecs_task_definition" "main" {
   family                   = var.app
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu        = var.cpu
-  memory                   = var.memory
-  execution_role_arn       = var.task_execution_role_arn
+  cpu                      = 256
+  memory                   = 512
+  execution_role_arn = var.execution_role_arn
+  task_role_arn = var.task_execution_role_arn
 
   container_definitions = jsonencode([
     {
-      name      = var.container_name
+      container_name      = var.container_name
       image     = "${var.ecr_repository_url}:${var.image_tag}"
       essential = true
 
@@ -37,6 +38,7 @@ resource "aws_ecs_task_definition" "main" {
           "awslogs-group"         = aws_cloudwatch_log_group.this.name
           "awslogs-region"        = var.aws_region
           "awslogs-stream-prefix" = var.container_name
+          "awslogs-create-group"  = "true"
         }
       }
     }
@@ -47,7 +49,7 @@ resource "aws_ecs_task_definition" "main" {
 
 resource "aws_ecs_service" "main" {
   name            = var.service_name
-  cluster         = aws_ecs_cluster.ecs_cluster.id
+  cluster         = aws_ecs_cluster.ecs.id
   task_definition = aws_ecs_task_definition.main.arn
   desired_count   = 1
   launch_type     = "FARGATE"
