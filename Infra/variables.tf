@@ -145,3 +145,9 @@ variable "execution_role_arn" {
     type = string
   
 }
+
+variable "docs_bucket_arn" {
+    type = string
+    default = "value"
+  
+}
