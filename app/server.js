@@ -37,12 +37,17 @@ function safeFilename(name = "file") {
   return cleaned.slice(0, 120) || "file";
 }
 
-// ---- Static wiki (your existing) ----
-app.use("/wiki", express.static(path.join(__dirname, "wiki")));
+// Redirect /wiki -> /wiki/
+app.get("/wiki", (req, res) => res.redirect(301, "/wiki/"));
 
-// ---- Health + base (your existing) ----
-app.get("/", (req, res) => res.send("Hello!"));
+// Serve static files at /wiki/*
+app.use("/wiki", express.static(path.join(__dirname, "wiki"), { index: "index.html" }));
+
 app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+app.get("/", (req, res) => res.redirect("/wiki/"));
+
+
 
 /**
  * POST /api/uploads/presign
@@ -51,7 +56,7 @@ app.get("/health", (req, res) => res.json({ status: "ok" }));
  */
 app.post("/api/uploads/presign", async (req, res) => {
   try {
-    // TODO: Add auth check here (otherwise anyone can upload)
+    
     const { filename, contentType, size, folder } = req.body || {};
 
     if (!BUCKET) return res.status(500).send("Server missing DOCS_BUCKET env var");
@@ -71,7 +76,7 @@ app.post("/api/uploads/presign", async (req, res) => {
       ContentType: ct
     });
 
-    const uploadUrl = await getSignedUrl(s3, cmd, { expiresIn: 60 }); // 60s URL
+    const uploadUrl = await getSignedUrl(s3, cmd, { expiresIn: 60 }); 
     res.json({ uploadUrl, key });
   } catch (err) {
     console.error(err);
@@ -82,3 +87,4 @@ app.post("/api/uploads/presign", async (req, res) => {
 app.listen(port, "0.0.0.0", () => {
   console.log(`Example app listening on port ${port}`);
 });
+git
