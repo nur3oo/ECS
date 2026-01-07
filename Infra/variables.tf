@@ -1,7 +1,7 @@
 //sg
 
 variable "app_port" {
-  type = number
+  type    = number
   default = 8080
 
 }
@@ -9,36 +9,36 @@ variable "app_port" {
 
 
 variable "protocol" {
-    type = string 
-    default = "tcp" 
+  type    = string
+  default = "tcp"
 }
 
 
 
 variable "alb_http_port" {
-    type = number
-    default = 0
-  
+  type    = number
+  default = 0
+
 }
 
 
 //vp
 variable "subnet_count" {
-    type = number
-    default = 2
-  
+  type    = number
+  default = 2
+
 }
 
 variable "public_subent_cidrs" {
-    type = list(any)
-    default = [ "10.0.1.0/24" ,  "10.0.2.0/24" ]
-  
+  type    = list(any)
+  default = ["10.0.1.0/24", "10.0.2.0/24"]
+
 }
 
 variable "private_subnet_cidrs" {
-    type = list(any)
-    default = [ "10.0.5.0/24" , "10.0.6.0/24" ]
-  
+  type    = list(any)
+  default = ["10.0.5.0/24", "10.0.6.0/24"]
+
 }
 
 
@@ -46,78 +46,78 @@ variable "private_subnet_cidrs" {
 //alb
 
 variable "load_balancer_type" {
-    type = string
-    default = "application"
+  type    = string
+  default = "application"
 }
 
 variable "container_port" {
-    type = number
-    default = 8080
+  type    = number
+  default = 8080
 }
 
 
 
 
-variable "alb_name"  {
-    type = string
-    default = "alb-node"
+variable "alb_name" {
+  type    = string
+  default = "alb-node"
 }
 
 
-variable "matcher"  {
-    type = string
-    default = "200"
+variable "matcher" {
+  type    = string
+  default = "200"
 }
 
 variable "aws_region" {
-    type = string
-    default = "eu-west-2"
+  type    = string
+  default = "eu-west-2"
 }
 
 //ecr
 variable "ecr_image" {
-   type = string
+  type = string
 }
 
 variable "image_tag" {
-    type = string
-  
+  type = string
+
 }
 
 //ecs
 
 variable "log_group_name" {
-    type = string
-    default = "This"
-  
+  type    = string
+  default = "This"
+
 }
 
 
 variable "cluster_name" {
-    type = string
-    default = "ecs"
+  type    = string
+  default = "ecs"
 }
 
 variable "service_name" {
-    type = string
-    default = "name"
-  
+  type    = string
+  default = "name"
+
 }
 
 
 variable "container_name" {
-    type = string
-    default = "app"
+  type    = string
+  default = "app"
 }
 
 variable "memory" {
-    type = number
-    default = 512
+  type    = number
+  default = 512
 }
 
 variable "cpu" {
-    type = number
-    default = 256
+  type    = number
+  default = 256
 }
 
 
@@ -129,25 +129,25 @@ variable "cpu" {
 //acm
 
 variable "domain_name" {
-    type = string
-    default = "nur-trade.org"
+  type    = string
+  default = "nur-trade.org"
 }
 
 //iam
 
 variable "db_password_secret_arn" {
-    type = string
-    sensitive = true
-  
+  type      = string
+  sensitive = true
+
 }
 
 variable "execution_role_arn" {
-    type = string
-  
+  type = string
+
 }
 
 variable "docs_bucket_arn" {
-    type = string
-    default = "value"
-  
+  type    = string
+  default = "value"
+
 }

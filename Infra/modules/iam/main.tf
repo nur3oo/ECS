@@ -44,8 +44,8 @@ resource "aws_secretsmanager_secret" "db_password" {
 
 data "aws_iam_policy_document" "task_s3" {
   statement {
-    effect  = "Allow"
-    actions = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"]
+    effect    = "Allow"
+    actions   = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"]
     resources = ["${var.docs_bucket_arn}/uploads/*"]
   }
 
@@ -63,13 +63,13 @@ data "aws_iam_policy_document" "task_s3" {
 
 resource "aws_iam_role_policy" "ecs_task_s3" {
   name   = "ecs-task-s3"
-  role   = aws_iam_role.ecs_task.id 
+  role   = aws_iam_role.ecs_task.id
   policy = data.aws_iam_policy_document.task_s3.json
 }
 
 
 resource "aws_iam_role" "ecs_task" {
-    name = "ecs-task-role"
-    assume_role_policy = data.aws_iam_policy_document.ecs_tasks_assume.json
-  
+  name               = "ecs-task-role"
+  assume_role_policy = data.aws_iam_policy_document.ecs_tasks_assume.json
+
 }

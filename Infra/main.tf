@@ -1,70 +1,70 @@
 module "sg" {
-    source = "./modules/sg"
-    app_port        = var.app_port 
-    protocol        = var.protocol
-    alb_http_port   = var.alb_http_port
-    vpc_id          = module.vpc.vpc_id
+  source        = "./modules/sg"
+  app_port      = var.app_port
+  protocol      = var.protocol
+  alb_http_port = var.alb_http_port
+  vpc_id        = module.vpc.vpc_id
 }
 
 module "vpc" {
-    source           = "./modules/vpc"
-    subnet_count     = var.subnet_count
-    public_subent_cidrs = var.public_subent_cidrs
-    private_subnet_cidrs = var.private_subnet_cidrs
+  source               = "./modules/vpc"
+  subnet_count         = var.subnet_count
+  public_subent_cidrs  = var.public_subent_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
 }
 
 module "iam" {
-    source = "./modules/iam"
-    db_password_secret_arn = var.db_password_secret_arn
-    docs_bucket_arn = var.docs_bucket_arn
+  source                 = "./modules/iam"
+  db_password_secret_arn = var.db_password_secret_arn
+  docs_bucket_arn        = var.docs_bucket_arn
 
 }
 
 module "alb" {
-    source              = "./modules/alb"
-    vpc_id              = module.vpc.vpc_id
-    certificate_arn     = module.acm.certificate_arn
-    load_balancer_type  = var.load_balancer_type
-    container_port      = var.container_port
-    alb_name            = var.alb_name
-    alb_sg_id           = module.sg.alb_sg_id
-    public_subnets_id   = module.vpc.public_subnet_ids
-    private_subnets_id  = module.vpc.private_subnet_ids
-    matcher = var.matcher
+  source             = "./modules/alb"
+  vpc_id             = module.vpc.vpc_id
+  certificate_arn    = module.acm.certificate_arn
+  load_balancer_type = var.load_balancer_type
+  container_port     = var.container_port
+  alb_name           = var.alb_name
+  alb_sg_id          = module.sg.alb_sg_id
+  public_subnets_id  = module.vpc.public_subnet_ids
+  private_subnets_id = module.vpc.private_subnet_ids
+  matcher            = var.matcher
 }
 
 module "ecr" {
-    source              = "./modules/ecr"
+  source = "./modules/ecr"
 
 }
 
 module "ecs" {
-    source              = "./modules/ecs"
-    cpu                 = var.cpu
-    private_subnet_ids  = module.vpc.private_subnet_ids
-    target_group_arn    = module.alb.target_group_arn
-    ecr_repository_url  = module.ecr.repository_url
-    container_name      = var.container_name
-    memory              = var.memory
-    container_port      = var.container_port
-    ecr_image           = "${module.ecr.repository_url}:${var.image_tag}"
-    log_group_name      = var.log_group_name
-    task_execution_role_arn = module.iam.ecs_task_execution_role_arn
-    cluster_name        = var.cluster_name
-    service_name        = var.service_name
-    ecs_security_group_id = module.sg.ecs_security_group_id
-    execution_role_arn = var.execution_role_arn
-    
+  source                  = "./modules/ecs"
+  cpu                     = var.cpu
+  private_subnet_ids      = module.vpc.private_subnet_ids
+  target_group_arn        = module.alb.target_group_arn
+  ecr_repository_url      = module.ecr.repository_url
+  container_name          = var.container_name
+  memory                  = var.memory
+  container_port          = var.container_port
+  ecr_image               = "${module.ecr.repository_url}:${var.image_tag}"
+  log_group_name          = var.log_group_name
+  task_execution_role_arn = module.iam.ecs_task_execution_role_arn
+  cluster_name            = var.cluster_name
+  service_name            = var.service_name
+  ecs_security_group_id   = module.sg.ecs_security_group_id
+  execution_role_arn      = var.execution_role_arn
+
 }
 
 module "s3" {
-    source              = "./modules/s3"
+  source = "./modules/s3"
 }
 module "cdn" {
-    source              = "./modules/cdn" 
+  source = "./modules/cdn"
 }
 
 module "acm" {
-    source              = "./modules/acm"
-    domain_name         = var.domain_name
+  source      = "./modules/acm"
+  domain_name = var.domain_name
 }

@@ -14,38 +14,38 @@ data "aws_availability_zones" "available" {
 // data look up of availabe AZs and reference it in my subnets
 
 resource "aws_subnet" "public" {
-    count             = var.subnet_count
-    vpc_id            = aws_vpc.main.id
-    cidr_block        = var.public_subent_cidrs[count.index]
-    availability_zone = data.aws_availability_zones.available.names[count.index]
-    tags   = {
-      name = "main"
-    }
-    //created pub sub
+  count             = var.subnet_count
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.public_subent_cidrs[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  tags = {
+    name = "main"
+  }
+  //created pub sub
 
-  
+
 }
 
 resource "aws_subnet" "private" {
-    count             = var.subnet_count
-    vpc_id            = aws_vpc.main.id
-    cidr_block        = var.private_subnet_cidrs[count.index]
-    availability_zone = data.aws_availability_zones.available.names[count.index]
- //aws decides what az to use for both pub and priv
+  count             = var.subnet_count
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_cidrs[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  //aws decides what az to use for both pub and priv
 
-    tags      = {
-      name    = "main"
-    }
+  tags = {
+    name = "main"
+  }
 
-  
+
 }
 
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id      = aws_vpc.main.id
+  vpc_id = aws_vpc.main.id
 
   tags = {
-    Name      = "main-igw"
+    Name = "main-igw"
   }
 }
 //the door to the internet for the vpc through the igw
@@ -64,13 +64,13 @@ resource "aws_nat_gateway" "nga" {
     Name = "pub-nat"
   }
 
- 
+
 }
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
-   route {
+  route {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nga.id
   }
@@ -84,7 +84,7 @@ resource "aws_route_table" "private" {
 
 
 resource "aws_route_table" "public" {
-  vpc_id       = aws_vpc.main.id
+  vpc_id = aws_vpc.main.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -103,12 +103,12 @@ resource "aws_route_table_association" "private" {
 }
 //Associate the priv route table to all private sub
 
-  
+
 
 
 resource "aws_route_table_association" "public" {
-  subnet_id       = aws_subnet.public[count.index].id
-  route_table_id  = aws_route_table.public.id
-  count           = var.subnet_count
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+  count          = var.subnet_count
 }
 //links the pub route table to the pub sub

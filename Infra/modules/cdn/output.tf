@@ -1,5 +1,5 @@
 output "certificate_arn" {
-    value = aws_acm_certificate.cdn.arn
+  value = aws_acm_certificate.cdn.arn
 }
 
 output "acm_validation_options" {

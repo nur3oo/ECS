@@ -36,7 +36,7 @@ resource "aws_s3_bucket_cors_configuration" "wiki_images" {
     allowed_methods = ["PUT", "POST", "GET", "HEAD"]
     allowed_origins = [
       "https://nur-trade.org"
-      
+
     ]
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
@@ -50,10 +50,10 @@ resource "aws_s3_bucket_cors_configuration" "wiki_images" {
 
 resource "aws_cloudfront_origin_access_control" "wiki_images_oac" {
 
-    name = "wiki-images-oac"
-    origin_access_control_origin_type = "s3"
-    signing_behavior = "always"
-    signing_protocol = "sigv4"
+  name                              = "wiki-images-oac"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 
 }
 //oac naming what resource this is for

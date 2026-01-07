@@ -9,6 +9,6 @@ output "task_definition_arn" {
 }
 
 output "execution_role_arn" {
-    value = aws_ecs_task_definition.main.arn
-  
+  value = aws_ecs_task_definition.main.arn
+
 }

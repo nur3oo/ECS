@@ -1,6 +1,6 @@
 variable "vpc_id" {
-    type = string
-  
+  type = string
+
 }
 
 variable "name" {
@@ -12,20 +12,20 @@ variable "name" {
 
 
 variable "protocol" {
-    type = string
-  
+  type = string
+
 }
 
 
 
 variable "alb_http_port" {
-    type = number
-  
+  type = number
+
 }
 
 
 
 variable "app_port" {
-    type = number
-  
+  type = number
+
 }

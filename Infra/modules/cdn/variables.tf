@@ -1,4 +1,4 @@
 variable "domain_name" {
-    type = string
-    default = "nur-trade.org"
+  type    = string
+  default = "nur-trade.org"
 }

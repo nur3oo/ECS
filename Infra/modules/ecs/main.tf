@@ -16,14 +16,14 @@ resource "aws_ecs_task_definition" "main" {
   network_mode             = "awsvpc"
   cpu                      = 256
   memory                   = 512
-  execution_role_arn = var.execution_role_arn
-  task_role_arn = var.task_execution_role_arn
+  execution_role_arn       = var.execution_role_arn
+  task_role_arn            = var.task_execution_role_arn
 
   container_definitions = jsonencode([
     {
-      container_name      = var.container_name
-      image     = "${var.ecr_repository_url}:${var.image_tag}"
-      essential = true
+      container_name = var.container_name
+      image          = "${var.ecr_repository_url}:${var.image_tag}"
+      essential      = true
 
       portMappings = [
         {
