@@ -36,16 +36,14 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           set -euo pipefail
+
           echo "Registry: $REGISTRY"
           echo "Repo: $ECR_REPO"
           echo "Tag: $IMAGE_TAG"
 
-          docker build \
-            -f Docker/Dockerfile \
-            -t "$REGISTRY/$ECR_REPO:$IMAGE_TAG" \
-            .
-
+          docker build -f Docker/Dockerfile -t "$REGISTRY/$ECR_REPO:$IMAGE_TAG" .
           docker push "$REGISTRY/$ECR_REPO:$IMAGE_TAG"
 
       - name: Output image tag
-        run: echo "Pushed image tag: ${{ github.sha }}"
+        run: |
+          echo "Pushed image tag: ${{ github.sha }}"
