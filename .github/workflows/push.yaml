@@ -3,6 +3,11 @@ name: Build and Push to ECR
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type BUILD to run"
+        required: true
 
 permissions:
   id-token: write
@@ -14,6 +19,7 @@ env:
 
 jobs:
   build-push:
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.confirm == 'BUILD' }}
     runs-on: ubuntu-latest
 
     steps:
