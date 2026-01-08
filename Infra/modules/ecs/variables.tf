@@ -35,9 +35,7 @@ variable "log_retention_in_days" {
 
 }
 
-variable "task_execution_role_arn" {
-  type = string
-}
+
 
 
 
