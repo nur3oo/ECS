@@ -69,15 +69,8 @@ variable "matcher" {
   default = "200"
 }
 
-variable "aws_region" {
-  type    = string
-  default = "eu-west-2"
-}
 
 //ecr
-variable "ecr_image" {
-  type = string
-}
 
 variable "image_tag" {
   type = string
@@ -119,11 +112,6 @@ variable "cpu" {
   type    = number
   default = 256
 }
-
-
-
-
-
 
 
 //acm

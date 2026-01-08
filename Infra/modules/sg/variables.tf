@@ -16,16 +16,3 @@ variable "protocol" {
 
 }
 
-
-
-variable "alb_http_port" {
-  type = number
-
-}
-
-
-
-variable "app_port" {
-  type = number
-
-}

@@ -36,12 +36,6 @@ variable "health_check_path" {
 }
 
 
-
-variable "private_subnets_id" {
-  type = list(string)
-
-}
-
 variable "container_port" {
   type = number
 

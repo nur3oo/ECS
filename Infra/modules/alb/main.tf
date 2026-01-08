@@ -1,5 +1,5 @@
 resource "aws_lb" "node_alb" {
-  name               = "node-alb"
+  name               = var.alb_name
   internal           = false
   load_balancer_type = var.load_balancer_type
   security_groups    = [var.alb_sg_id]
@@ -7,7 +7,7 @@ resource "aws_lb" "node_alb" {
 }
 // alb needs to be in pub sub
 resource "aws_lb_target_group" "tg" {
-  name        = "node-alb-tg"
+  name        = var.alb_name
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id

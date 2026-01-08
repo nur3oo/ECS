@@ -12,10 +12,6 @@ variable "container_name" {
   default = "ecs"
 }
 
-variable "ecr_image" {
-  type = string
-}
-
 variable "private_subnet_ids" {
   type = list(string)
 }
@@ -43,14 +39,7 @@ variable "task_execution_role_arn" {
   type = string
 }
 
-variable "cpu" {
-  type = number
-}
 
-variable "memory" {
-  type = number
-
-}
 
 variable "ecs_security_group_id" {
   type = string
