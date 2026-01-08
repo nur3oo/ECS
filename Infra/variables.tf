@@ -1,25 +1,10 @@
 //sg
 
-variable "app_port" {
-  type    = number
-  default = 8080
-
-}
-
-
-
 variable "protocol" {
   type    = string
   default = "tcp"
 }
 
-
-
-variable "alb_http_port" {
-  type    = number
-  default = 0
-
-}
 
 
 //vp
@@ -70,13 +55,6 @@ variable "matcher" {
 }
 
 
-//ecr
-
-variable "image_tag" {
-  type = string
-
-}
-
 //ecs
 
 variable "log_group_name" {
@@ -103,15 +81,8 @@ variable "container_name" {
   default = "app"
 }
 
-variable "memory" {
-  type    = number
-  default = 512
-}
 
-variable "cpu" {
-  type    = number
-  default = 256
-}
+
 
 
 //acm
