@@ -94,11 +94,6 @@ variable "domain_name" {
 
 //iam
 
-variable "db_password_secret_arn" {
-  type      = string
-  sensitive = true
-
-}
 
 variable "execution_role_arn" {
   type = string
