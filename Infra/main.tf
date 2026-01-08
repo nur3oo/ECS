@@ -1,8 +1,6 @@
 module "sg" {
   source        = "./modules/sg"
-  app_port      = var.app_port
   protocol      = var.protocol
-  alb_http_port = var.alb_http_port
   vpc_id        = module.vpc.vpc_id
 }
 
@@ -29,7 +27,6 @@ module "alb" {
   alb_name           = var.alb_name
   alb_sg_id          = module.sg.alb_sg_id
   public_subnets_id  = module.vpc.public_subnet_ids
-  private_subnets_id = module.vpc.private_subnet_ids
   matcher            = var.matcher
 }
 
@@ -40,21 +37,17 @@ module "ecr" {
 
 module "ecs" {
   source                  = "./modules/ecs"
-  cpu                     = var.cpu
   private_subnet_ids      = module.vpc.private_subnet_ids
   target_group_arn        = module.alb.target_group_arn
   ecr_repository_url      = module.ecr.repository_url
   container_name          = var.container_name
-  memory                  = var.memory
   container_port          = var.container_port
-  ecr_image               = "${module.ecr.repository_url}:${var.image_tag}"
   log_group_name          = var.log_group_name
   task_execution_role_arn = module.iam.ecs_task_execution_role_arn
   cluster_name            = var.cluster_name
   service_name            = var.service_name
   ecs_security_group_id   = module.sg.ecs_security_group_id
   execution_role_arn      = var.execution_role_arn
-
 }
 
 module "s3" {
