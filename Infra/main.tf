@@ -1,7 +1,7 @@
 module "sg" {
-  source        = "./modules/sg"
-  protocol      = var.protocol
-  vpc_id        = module.vpc.vpc_id
+  source   = "./modules/sg"
+  protocol = var.protocol
+  vpc_id   = module.vpc.vpc_id
 }
 
 module "vpc" {

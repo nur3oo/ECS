@@ -1,10 +1,10 @@
 variable "validation_method" {
-    type = string
-    default = "DNS"
+  type    = string
+  default = "DNS"
 }
 
 
 variable "domain_name" {
-  type = string
+  type    = string
   default = "nur-trade.org"
 }
