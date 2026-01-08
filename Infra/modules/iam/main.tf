@@ -36,8 +36,8 @@ resource "aws_iam_role_policy" "ecs_exec_read_secret" {
 //create the secret
 
 resource "random_password" "db_password" {
-    length = 18
-    special = true
+  length  = 18
+  special = true
 }
 
 
@@ -46,7 +46,7 @@ resource "aws_secretsmanager_secret" "db_password" {
 }
 
 resource "aws_secretsmanager_secret_version" "db_password" {
-  secret_id = aws_secretsmanager_secret.db_password.id
+  secret_id     = aws_secretsmanager_secret.db_password.id
   secret_string = random_password.db_password.result
 }
 

@@ -12,8 +12,8 @@ module "vpc" {
 }
 
 module "iam" {
-  source                 = "./modules/iam"
-  docs_bucket_arn        = var.docs_bucket_arn
+  source          = "./modules/iam"
+  docs_bucket_arn = var.docs_bucket_arn
 }
 
 module "alb" {
