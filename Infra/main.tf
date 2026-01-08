@@ -13,7 +13,6 @@ module "vpc" {
 
 module "iam" {
   source                 = "./modules/iam"
-  db_password_secret_arn = var.db_password_secret_arn
   docs_bucket_arn        = var.docs_bucket_arn
 }
 

@@ -16,14 +16,14 @@ resource "aws_iam_role" "ecs_task_execution" {
 //attaching policy
 resource "aws_iam_role_policy_attachment" "ecs_exec_attach" {
   role       = aws_iam_role.ecs_task_execution.name
-  policy_arn = ""
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 //creates policy docs for secrets
 data "aws_iam_policy_document" "ecs_exec_secrets" {
   statement {
     effect    = "Allow"
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = [var.db_password_secret_arn]
+    resources = [aws_secretsmanager_secret.db_password.arn]
   }
 }
 
@@ -35,8 +35,19 @@ resource "aws_iam_role_policy" "ecs_exec_read_secret" {
 
 //create the secret
 
+resource "random_password" "db_password" {
+    length = 18
+    special = true
+}
+
+
 resource "aws_secretsmanager_secret" "db_password" {
   name = "my-db-password"
+}
+
+resource "aws_secretsmanager_secret_version" "db_password" {
+  secret_id = aws_secretsmanager_secret.db_password.id
+  secret_string = random_password.db_password.result
 }
 
 
