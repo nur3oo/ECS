@@ -63,11 +63,6 @@ variable "image_tag" {
 }
 
 
-variable "execution_role_arn" {
-  type = string
-
-}
-
 variable "app" {
   type    = string
   default = "nur-ecs"
@@ -77,3 +72,12 @@ variable "service_name" {
   type = string
 }
 
+variable "execution_role_arn" {
+    type = string
+  
+}
+
+variable "task_role_arn" {
+    type = string
+  
+}

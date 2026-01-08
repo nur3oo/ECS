@@ -45,7 +45,8 @@ module "ecs" {
   cluster_name            = var.cluster_name
   service_name            = var.service_name
   ecs_security_group_id   = module.sg.ecs_security_group_id
-  execution_role_arn      = var.execution_role_arn
+  task_role_arn           = module.iam.ecs_task_role_arn
+  execution_role_arn      = module.iam.ecs_task_execution_role_arn
 }
 
 module "s3" {
