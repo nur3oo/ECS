@@ -73,11 +73,11 @@ variable "service_name" {
 }
 
 variable "execution_role_arn" {
-    type = string
-  
+  type = string
+
 }
 
 variable "task_role_arn" {
-    type = string
-  
+  type = string
+
 }
