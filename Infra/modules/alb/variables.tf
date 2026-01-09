@@ -28,6 +28,7 @@ variable "matcher" {
 
 variable "load_balancer_type" {
   type = string
+  default = "application"
 }
 
 variable "health_check_path" {
