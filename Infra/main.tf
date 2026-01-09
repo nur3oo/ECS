@@ -41,7 +41,6 @@ module "ecs" {
   container_name          = var.container_name
   container_port          = var.container_port
   log_group_name          = var.log_group_name
-  task_execution_role_arn = module.iam.ecs_task_execution_role_arn
   cluster_name            = var.cluster_name
   service_name            = var.service_name
   ecs_security_group_id   = module.sg.ecs_security_group_id
