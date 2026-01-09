@@ -14,7 +14,7 @@ module "vpc" {
 module "iam" {
   source          = "./modules/iam"
   docs_bucket_arn = var.docs_bucket_arn
-  secret_name = var.secret_name
+  secret_name     = var.secret_name
 }
 
 module "alb" {

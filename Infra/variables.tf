@@ -103,7 +103,7 @@ variable "docs_bucket_arn" {
 }
 
 variable "secret_name" {
-    type = string
-  
+  type = string
+
 }
 
