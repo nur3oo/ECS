@@ -22,8 +22,7 @@ jobs:
     env:
       TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       TF_VAR_cloudflare_zone_id: ${{ vars.CLOUDFLARE_ZONE_ID }}
-      # Optional if you use it in Terraform:
-      # TF_VAR_domain_name: ${{ vars.DOMAIN_NAME }}
+     
 
     defaults:
       run:
@@ -48,7 +47,8 @@ jobs:
         run: terraform fmt -check -recursive
 
       - name: Terraform init
-        run: terraform init
+        run: terraform init -upgrade -input=false
+
 
       - name: Terraform validate
         run: terraform validate
