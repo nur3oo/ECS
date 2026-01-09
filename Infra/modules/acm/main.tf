@@ -13,6 +13,15 @@ resource "aws_acm_certificate" "cert" {
   }
 }
 
+resource "cloudflare_record" "apex" {
+  zone_id = var.cloudflare_zone_id
+  name    = "@"
+  type    = "CNAME"
+  value   = var.cloudfront_domain_name  
+  ttl     = 60
+  proxied = false
+}
+
 
 
 
