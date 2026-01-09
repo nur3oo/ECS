@@ -58,7 +58,7 @@ module "cdn" {
 }
 
 module "acm" {
-  source = "./modules/acm"
+  source               = "./modules/acm"
   domain_name          = var.domain_name
   cloudflare_api_token = var.cloudflare_api_token
   cloudflare_zone_id   = var.cloudflare_zone_id
