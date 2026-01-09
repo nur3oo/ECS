@@ -27,7 +27,7 @@ variable "matcher" {
 
 
 variable "load_balancer_type" {
-  type = string
+  type    = string
   default = "application"
 }
 
