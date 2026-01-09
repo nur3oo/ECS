@@ -38,7 +38,7 @@ module "ecs" {
   private_subnet_ids    = module.vpc.private_subnet_ids
   target_group_arn      = module.alb.target_group_arn
   ecr_repository_url    = module.ecr.repository_url
-  container_name        = var.container_name
+  container_name        = "nur-ecs"
   container_port        = var.container_port
   log_group_name        = var.log_group_name
   cluster_name          = var.cluster_name

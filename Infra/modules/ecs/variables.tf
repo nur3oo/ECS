@@ -9,7 +9,7 @@ variable "container_port" {
 
 variable "container_name" {
   type    = string
-  default = "ecs"
+  default = "nur-ecs"
 }
 
 variable "private_subnet_ids" {
