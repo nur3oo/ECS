@@ -50,7 +50,7 @@ module "ecs" {
 }
 
 module "s3" {
-  source = "./modules/s3"
+  source       = "./modules/s3"
   alb_dns_name = module.alb.alb_dns_name
 }
 module "cdn" {
@@ -58,8 +58,8 @@ module "cdn" {
 }
 
 module "acm" {
-  source      = "./modules/acm"
-  domain_name = var.domain_name
+  source               = "./modules/acm"
+  domain_name          = var.domain_name
   cloudflare_api_token = var.cloudflare_api_token
-  cloudflare_zone_id = var.cloudflare_zone_id
+  cloudflare_zone_id   = var.cloudflare_zone_id
 }
