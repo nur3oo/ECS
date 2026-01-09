@@ -34,18 +34,18 @@ module "ecr" {
 }
 
 module "ecs" {
-  source                  = "./modules/ecs"
-  private_subnet_ids      = module.vpc.private_subnet_ids
-  target_group_arn        = module.alb.target_group_arn
-  ecr_repository_url      = module.ecr.repository_url
-  container_name          = var.container_name
-  container_port          = var.container_port
-  log_group_name          = var.log_group_name
-  cluster_name            = var.cluster_name
-  service_name            = var.service_name
-  ecs_security_group_id   = module.sg.ecs_security_group_id
-  task_role_arn           = module.iam.ecs_task_role_arn
-  execution_role_arn      = module.iam.ecs_task_execution_role_arn
+  source                = "./modules/ecs"
+  private_subnet_ids    = module.vpc.private_subnet_ids
+  target_group_arn      = module.alb.target_group_arn
+  ecr_repository_url    = module.ecr.repository_url
+  container_name        = var.container_name
+  container_port        = var.container_port
+  log_group_name        = var.log_group_name
+  cluster_name          = var.cluster_name
+  service_name          = var.service_name
+  ecs_security_group_id = module.sg.ecs_security_group_id
+  task_role_arn         = module.iam.ecs_task_role_arn
+  execution_role_arn    = module.iam.ecs_task_execution_role_arn
 }
 
 module "s3" {
