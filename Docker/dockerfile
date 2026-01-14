@@ -12,9 +12,9 @@ ENV PORT=8080
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY app/server.js ./server.js
-COPY app/wiki ./wiki
+COPY app/public ./public
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \ 
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://127.0.0.1:8080/health', (r)=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
 
 EXPOSE 8080
