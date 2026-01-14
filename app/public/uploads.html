@@ -35,7 +35,6 @@
     a{color:inherit; text-decoration:none}
     .wrap{max-width:1120px; margin:0 auto; padding:18px 16px 70px}
 
-    /* Top bar */
     .top{
       display:flex; align-items:center; justify-content:space-between;
       gap:14px;
@@ -97,7 +96,6 @@
       color:rgba(167,179,199,.95);
     }
 
-    /* Layout */
     .grid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -123,7 +121,6 @@
       max-width: 70ch;
     }
 
-    /* Form */
     .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .field{
       width:100%;
@@ -146,7 +143,6 @@
     input::placeholder, textarea::placeholder{color:rgba(167,179,199,.65)}
     textarea{min-height:80px; resize:vertical}
 
-    /* Dropzone */
     .drop{
       margin-top:14px;
       border-radius: 18px;
@@ -205,7 +201,6 @@
     .bad{color:rgba(251,113,133,.95)}
     .mono{font-family:var(--mono)}
 
-    /* Right column */
     .sideList{
       display:flex; flex-direction:column; gap:10px;
       padding: 6px 16px 16px;
@@ -303,7 +298,6 @@
     </header>
 
     <div class="grid">
-      <!-- Main upload panel -->
       <section class="card">
         <div class="cardHead">
           <h1>Upload files for your team</h1>
@@ -370,7 +364,6 @@
         </div>
       </section>
 
-      <!-- Right sidebar -->
       <aside class="card">
         <div class="cardHead">
           <h1 style="font-size:18px; margin-top:2px;">Team space</h1>
@@ -399,9 +392,7 @@
               <button class="btn" id="clearRecentBtn" type="button">Clear list</button>
             </div>
 
-            <div id="recent">
-              <!-- populated by JS -->
-            </div>
+            <div id="recent"></div>
           </div>
 
           <button class="btn danger" id="resetBtn" type="button">Reset page</button>
@@ -411,12 +402,14 @@
   </div>
 
   <script>
-    // Backend endpoint that returns: { uploadUrl, key }
+    // Endpoints
     const PRESIGN_ENDPOINT = "/api/uploads/presign";
+    const RECENT_ENDPOINT  = "/api/uploads/recent";
+    const INVITE_ENDPOINT  = "/api/invites";
 
     // ---- Elements
-    const y = document.getElementById("y");
-    y.textContent = new Date().getFullYear();
+    document.getElementById("y").textContent = new Date().getFullYear();
+    document.getElementById("apiPath").textContent = PRESIGN_ENDPOINT;
 
     const drop = document.getElementById("drop");
     const fileInput = document.getElementById("fileInput");
@@ -436,8 +429,6 @@
 
     const recentEl = document.getElementById("recent");
     const clearRecentBtn = document.getElementById("clearRecentBtn");
-
-    document.getElementById("apiPath").textContent = PRESIGN_ENDPOINT;
 
     let selectedFile = null;
     let recent = [];
@@ -494,6 +485,15 @@
       setStatus("Ready to upload.");
     }
 
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
     function renderRecent(){
       if(!recent.length){
         recentEl.innerHTML = `<div class="pill" style="display:inline-flex; opacity:.9">No uploads yet</div>`;
@@ -511,27 +511,37 @@
       `).join("");
     }
 
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
+    async function loadRecentFromServer(){
+      try {
+        const team = sanitizePart(teamEl.value || "operations");
+        const folder = sanitizePart(folderEl.value || "general");
+        const url = `${RECENT_ENDPOINT}?team=${encodeURIComponent(team)}&folder=${encodeURIComponent(folder)}`;
 
-    function nowLabel(){
-      const d = new Date();
-      return d.toLocaleString(undefined, { hour: "2-digit", minute:"2-digit", day:"2-digit", month:"short" });
+        const res = await fetch(url);
+        if(!res.ok) throw new Error(await res.text());
+
+        const rows = await res.json();
+        recent = rows.map(r => ({
+          name: r.filename,
+          type: fileExt(r.filename),
+          size: humanSize(r.size_bytes || 0),
+          when: new Date(r.created_at).toLocaleString(),
+          where: `${r.team}/${r.folder}`,
+          key: r.s3_key
+        }));
+        renderRecent();
+      } catch (e) {
+        console.warn("loadRecentFromServer failed:", e.message);
+        renderRecent();
+      }
     }
 
     // ---- Events
-    teamEl.addEventListener("change", updateTargetChip);
-    folderEl.addEventListener("input", updateTargetChip);
+    teamEl.addEventListener("change", async () => { updateTargetChip(); await loadRecentFromServer(); });
+    folderEl.addEventListener("input", async () => { updateTargetChip(); await loadRecentFromServer(); });
 
     fileInput.addEventListener("change", () => pickFile(fileInput.files && fileInput.files[0]));
 
-    // Drag & drop UX
     ["dragenter","dragover"].forEach(evt => drop.addEventListener(evt, (e) => {
       e.preventDefault(); e.stopPropagation();
       drop.classList.add("drag");
@@ -554,17 +564,41 @@
       pickFile(null);
     });
 
-    clearRecentBtn.addEventListener("click", () => {
-      recent = [];
-      renderRecent();
+    clearRecentBtn.addEventListener("click", async () => {
+      try {
+        const team = sanitizePart(teamEl.value || "operations");
+        const folder = sanitizePart(folderEl.value || "general");
+        const url = `${RECENT_ENDPOINT}?team=${encodeURIComponent(team)}&folder=${encodeURIComponent(folder)}`;
+
+        const res = await fetch(url, { method: "DELETE" });
+        if(!res.ok && res.status !== 204) throw new Error(await res.text());
+
+        recent = [];
+        renderRecent();
+      } catch (e) {
+        setStatus(`Clear failed: ${e.message}`, "bad");
+      }
     });
 
     resetBtn.addEventListener("click", () => location.reload());
 
-    inviteBtn.addEventListener("click", () => {
+    inviteBtn.addEventListener("click", async () => {
       const email = prompt("Invite teammate (email):");
       if(!email) return;
-      alert(`Invite sent to: ${email}\n\n(Replace this with a real invite flow later.)`);
+
+      try {
+        const team = sanitizePart(teamEl.value || "operations");
+        const res = await fetch(INVITE_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, team })
+        });
+
+        if(!res.ok) throw new Error(await res.text());
+        alert(`Invite created for: ${email} (team: ${team})`);
+      } catch (e) {
+        alert(`Invite failed: ${e.message}`);
+      }
     });
 
     async function getPresignedUrl(file){
@@ -576,7 +610,6 @@
         filename: file.name,
         contentType: file.type || "application/octet-stream",
         size: file.size,
-        // your backend can convert these into an S3 key under uploads/
         team,
         folder,
         note
@@ -592,7 +625,7 @@
         const text = await res.text().catch(()=> "");
         throw new Error(`Presign failed (${res.status}). ${text}`.trim());
       }
-      return res.json(); // { uploadUrl, key }
+      return res.json();
     }
 
     function uploadWithProgress(url, file){
@@ -632,25 +665,16 @@
         setStatus("Preparing upload…");
         setProgress(2);
 
-        const { uploadUrl, key } = await getPresignedUrl(selectedFile);
+        const { uploadUrl } = await getPresignedUrl(selectedFile);
         if(!uploadUrl) throw new Error("No uploadUrl returned from server.");
 
         setStatus("Uploading…");
         await uploadWithProgress(uploadUrl, selectedFile);
 
-        const where = `${sanitizePart(teamEl.value)}/${sanitizePart(folderEl.value)}`;
-        recent.unshift({
-          name: selectedFile.name,
-          type: fileExt(selectedFile.name),
-          size: humanSize(selectedFile.size),
-          when: nowLabel(),
-          where,
-          key: key || ""
-        });
-        recent = recent.slice(0, 8);
-        renderRecent();
-
         setStatus("Upload complete ✅", "ok");
+
+        // Reload persisted recent list from server
+        await loadRecentFromServer();
       } catch(err){
         setProgress(0);
         setStatus(`Upload failed: ${err.message}`, "bad");
@@ -660,6 +684,7 @@
     // Init
     updateTargetChip();
     renderRecent();
+    loadRecentFromServer();
   </script>
 </body>
 </html>
