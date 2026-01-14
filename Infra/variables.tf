@@ -76,10 +76,6 @@ variable "service_name" {
 }
 
 
-variable "container_name" {
-  type    = string
-  default = "app"
-}
 
 
 
