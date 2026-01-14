@@ -16,6 +16,8 @@ permissions:
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION }}
+  TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  TF_VAR_cloudflare_zone_id: ${{ vars.CLOUDFLARE_ZONE_ID }}
 
 defaults:
   run:
@@ -45,7 +47,6 @@ jobs:
 
       - name: Terraform init
         run: terraform init -upgrade -input=false
-
 
       - name: Terraform validate
         run: terraform validate
