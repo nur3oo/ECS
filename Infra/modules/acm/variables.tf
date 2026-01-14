@@ -18,8 +18,3 @@ variable "cloudfront_domain_name" {
   default = "d32je5ns14govj.cloudfront.net"
 }
 
-variable "cloudflare_api_token" {
-  type      = string
-  sensitive = true
-
-}
