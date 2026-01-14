@@ -20,29 +20,43 @@ resource "aws_ecs_task_definition" "main" {
   task_role_arn            = var.task_role_arn
 
   container_definitions = jsonencode([
-    {
-      name      = var.container_name
-      image     = "${var.ecr_repository_url}:${var.image_tag}"
-      essential = true
+  {
+    name      = var.container_name
+    image     = "${var.ecr_repository_url}:${var.image_tag}"
+    essential = true
 
-      portMappings = [
-        {
-          containerPort = var.container_port
-          protocol      = "tcp"
-        }
-      ]
+    portMappings = [
+      {
+        containerPort = var.container_port
+        protocol      = "tcp"
+      }
+    ]
 
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          "awslogs-group"         = aws_cloudwatch_log_group.this.name
-          "awslogs-region"        = var.aws_region
-          "awslogs-stream-prefix" = var.container_name
-          "awslogs-create-group"  = "true"
-        }
+
+    environment = [
+      { name = "DB_HOST", value = var.db_endpoint },
+      { name = "DB_PORT", value = "5432" }
+    ]
+
+    secrets = [
+      {
+        name      = "DB_SECRET_JSON"
+        valueFrom = var.db_secret_arn
+      }
+    ]
+
+    # ✅ Keep your logging exactly as-is
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        "awslogs-group"         = aws_cloudwatch_log_group.this.name
+        "awslogs-region"        = var.aws_region
+        "awslogs-stream-prefix" = var.container_name
+        "awslogs-create-group"  = "true"
       }
     }
-  ])
+  }
+])
 }
 
 

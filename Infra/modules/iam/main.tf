@@ -86,3 +86,22 @@ resource "aws_iam_role" "ecs_task" {
 
 }
 
+##rds policies
+
+resource "aws_iam_policy" "ecs_read_db_secret" {
+  name = "${var.name}-ecs-read-db-secret"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Action = ["secretsmanager:GetSecretValue"],
+      Resource = var.db_secret_arn
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "attach_secret_policy" {
+  role       = aws_iam_role.ecs_task_role.name
+  policy_arn = aws_iam_policy.ecs_read_db_secret.arn
+}

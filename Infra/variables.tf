@@ -75,6 +75,16 @@ variable "service_name" {
 
 }
 
+variable "db_endpoint" {
+  type = string
+}
+
+variable "db_secret_arn" {
+  type = string
+  sensitive = true
+  
+}
+
 
 
 
@@ -88,10 +98,7 @@ variable "domain_name" {
   default = "nur-trade.org"
 }
 
-variable "cloudflare_api_token" {
-  type      = string
-  sensitive = true
-}
+
 
 variable "cloudflare_zone_id" {
   type = string
@@ -111,4 +118,20 @@ variable "secret_name" {
   type = string
 
 }
+
+variable "cloudflare_api_token" {
+  type = string
+  sensitive = true
+  
+}
+
+//rds
+
+variable "name" {
+  type = string
+  default = "rds"
+  
+}
+
+
 

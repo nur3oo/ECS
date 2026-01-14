@@ -15,6 +15,8 @@ module "iam" {
   source          = "./modules/iam"
   docs_bucket_arn = var.docs_bucket_arn
   secret_name     = var.secret_name
+  name            = var.name
+  db_secret_arn   = var.db_secret_arn
 }
 
 module "alb" {
@@ -47,6 +49,8 @@ module "ecs" {
   ecs_security_group_id = module.sg.ecs_security_group_id
   task_role_arn         = module.iam.ecs_task_role_arn
   execution_role_arn    = module.iam.ecs_task_execution_role_arn
+  db_endpoint           = var.db_endpoint
+  db_secret_arn         = var.db_secret_arn
 }
 
 module "s3" {
@@ -60,6 +64,15 @@ module "cdn" {
 module "acm" {
   source               = "./modules/acm"
   domain_name          = var.domain_name
-  cloudflare_api_token = var.cloudflare_api_token
   cloudflare_zone_id   = var.cloudflare_zone_id
+  cloudflare_api_token = var.cloudflare_api_token
+}
+
+module "rds" {
+  source                = "./modules/rds"
+  vpc_id = module.vpc.vpc_id
+  ecs_security_group_id = module.ecs.ecs_security_group_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+  name = var.name
+
 }
