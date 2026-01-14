@@ -70,9 +70,9 @@ module "acm" {
 
 module "rds" {
   source                = "./modules/rds"
-  vpc_id = module.vpc.vpc_id
+  vpc_id                = module.vpc.vpc_id
   ecs_security_group_id = module.ecs.ecs_security_group_id
-  private_subnet_ids = module.vpc.private_subnet_ids
-  name = var.name
+  private_subnet_ids    = module.vpc.private_subnet_ids
+  name                  = var.name
 
 }

@@ -8,11 +8,11 @@ variable "secret_name" {
 
 variable "name" {
   type = string
-  
+
 }
 
 variable "db_secret_arn" {
-  type = string
+  type      = string
   sensitive = true
-  
+
 }

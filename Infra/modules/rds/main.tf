@@ -30,21 +30,21 @@ resource "aws_security_group" "rds_sg" {
 
 
 resource "aws_db_instance" "postgres" {
-  identifier              = "${var.name}-postgres"
-  engine                  = "16.3"
-  engine_version          = var.engine_version
-  instance_class          = var.instance_class
-  allocated_storage       = 20
-  storage_type            = "gp3"
+  identifier        = "${var.name}-postgres"
+  engine            = "16.3"
+  engine_version    = var.engine_version
+  instance_class    = var.instance_class
+  allocated_storage = 20
+  storage_type      = "gp3"
 
-  db_name                 = var.db_name
-  username                = var.db_username
-  password                = random_password.db_password.result
+  db_name  = var.db_name
+  username = var.db_username
+  password = random_password.db_password.result
 
-  db_subnet_group_name    = aws_db_subnet_group.main.name
-  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
-  publicly_accessible     = var.publicly_accessible
-  multi_az                = var.multi_az
+  db_subnet_group_name   = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  publicly_accessible    = var.publicly_accessible
+  multi_az               = var.multi_az
 
   backup_retention_period = var.backup_retention_period
   skip_final_snapshot     = var.skip_final_snapshot

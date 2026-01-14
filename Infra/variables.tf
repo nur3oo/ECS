@@ -80,9 +80,9 @@ variable "db_endpoint" {
 }
 
 variable "db_secret_arn" {
-  type = string
+  type      = string
   sensitive = true
-  
+
 }
 
 
@@ -120,17 +120,17 @@ variable "secret_name" {
 }
 
 variable "cloudflare_api_token" {
-  type = string
+  type      = string
   sensitive = true
-  
+
 }
 
 //rds
 
 variable "name" {
-  type = string
+  type    = string
   default = "rds"
-  
+
 }
 
 
