@@ -102,6 +102,6 @@ resource "aws_iam_policy" "ecs_read_db_secret" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_secret_policy" {
-  role       = aws_iam_role.ecs_task_role.name
+  role       = aws_iam_role.ecs_task.name
   policy_arn = aws_iam_policy.ecs_read_db_secret.arn
 }
