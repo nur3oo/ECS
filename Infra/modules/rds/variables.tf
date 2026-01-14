@@ -42,11 +42,6 @@ variable "instance_class" {
   default     = "db.t4g.micro"
 }
 
-variable "allocated_storage" {
-  description = "storage in GB"
-  type        = number
-  default     = 20
-}
 
 variable "backup_retention_period" {
   description = "days to retain automated backups"

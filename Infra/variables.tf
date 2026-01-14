@@ -75,9 +75,7 @@ variable "service_name" {
 
 }
 
-variable "db_endpoint" {
-  type = string
-}
+
 
 variable "db_secret_arn" {
   type      = string
