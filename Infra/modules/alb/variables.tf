@@ -39,6 +39,7 @@ variable "health_check_path" {
 
 variable "container_port" {
   type = number
+  default = 8080
 
 }
 
