@@ -18,11 +18,6 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
-variable "ecs_security_group_id" {
-  description = "Security Group ID attached to ecs task"
-  type        = string
-}
-
 variable "db_name" {
   description = "Initial database name"
   type        = string
