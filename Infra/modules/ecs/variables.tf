@@ -85,5 +85,5 @@ variable "db_endpoint" {
 
 variable "db_secret_arn" {
   type = string
-  
+
 }
