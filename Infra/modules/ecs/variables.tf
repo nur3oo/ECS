@@ -72,10 +72,18 @@ variable "service_name" {
 
 variable "execution_role_arn" {
   type = string
-
 }
 
 variable "task_role_arn" {
   type = string
+}
 
+
+variable "db_endpoint" {
+  type = string
+}
+
+variable "db_secret_arn" {
+  type = string
+  
 }
