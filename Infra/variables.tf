@@ -77,17 +77,6 @@ variable "service_name" {
 
 
 
-variable "db_secret_arn" {
-  type      = string
-  sensitive = true
-
-}
-
-
-
-
-
-
 
 //acm
 
