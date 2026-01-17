@@ -31,7 +31,7 @@ resource "aws_security_group" "rds_sg" {
 
 resource "aws_db_instance" "postgres" {
   identifier        = "${var.name}-postgres"
-  engine            = "postgress"
+  engine            = "postgres"
   engine_version    = var.engine_version
   instance_class    = var.instance_class
   allocated_storage = 20
@@ -59,7 +59,7 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "db" {
-  name = "${var.name}/db"
+  name = "${var.name}/db.v1"
 }
 
 resource "aws_secretsmanager_secret_version" "db" {
