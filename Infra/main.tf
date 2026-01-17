@@ -29,6 +29,7 @@ module "alb" {
   alb_sg_id          = module.sg.alb_sg_id
   public_subnets_id  = module.vpc.public_subnet_ids
   matcher            = var.matcher
+  health_check_path = var.health_check_path
 }
 
 module "ecr" {
