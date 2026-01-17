@@ -95,3 +95,10 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 # Terrafrom Destroy
 <img width="1839" height="977" alt="Screenshot 2026-01-09 151207" src="https://github.com/user-attachments/assets/20290287-3bf0-4823-9aa6-63c175516e93" />
 
+# Improvments for the future
+- When I am modularising my work, have all the security groups for the ALB, RDS etc all in the Security group module and not seperated, half in one and half in another module.
+- Track usage, and scale for load.
+- 
+- 
+
+
