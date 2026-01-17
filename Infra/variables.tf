@@ -55,9 +55,9 @@ variable "matcher" {
 }
 
 variable "health_check_path" {
-  type = string
+  type    = string
   default = "/health"
-  
+
 }
 
 

@@ -20,7 +20,7 @@ variable "public_subnets_id" {
 }
 
 variable "matcher" {
-  type = string
+  type    = string
   default = "200"
 
 }
