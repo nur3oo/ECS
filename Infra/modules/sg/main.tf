@@ -57,7 +57,7 @@ resource "aws_security_group" "ECS" {
 
 
   egress {
-    description = "allow traffic to the alb"
+    description = "allow traffic"
     from_port   = 0
     to_port     = 0
     protocol    = -1

@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "main" {
 
       portMappings = [
         {
-          containerPort = var.container_port
+          containerPort = 8080
           protocol      = "tcp"
         }
       ]
@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "main" {
         }
       ]
 
-      # ✅ Keep your logging exactly as-is
+     
       logConfiguration = {
         logDriver = "awslogs"
         options = {
