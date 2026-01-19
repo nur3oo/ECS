@@ -55,7 +55,7 @@ resource "aws_db_instance" "postgres" {
 
 resource "random_password" "db_password" {
   length  = 24
-  special = true
+  special = false
 }
 
 resource "aws_secretsmanager_secret" "db" {
