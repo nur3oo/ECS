@@ -26,10 +26,10 @@ resource "aws_ecs_task_definition" "main" {
       portMappings = [
         {
           container_port = 8080
-          protocol      = "tcp"
+          protocol       = "tcp"
         }
       ]
-      
+
       environment = [
         { name = "DB_HOST", value = var.db_endpoint },
         { name = "DB_PORT", value = "5432" }
