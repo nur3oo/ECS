@@ -50,3 +50,23 @@ resource "aws_iam_role_policy_attachment" "attach_secret_policy" {
   role       = aws_iam_role.ecs_task_execution.name
   policy_arn = aws_iam_policy.ecs_read_db_secret.arn
 }
+
+data "aws_iam_policy_document" "task_s3" {
+  statement {
+    effect    = "Allow"
+    actions   = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"]
+    resources = ["${var.docs_bucket_arn}/uploads/*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = [var.docs_bucket_arn]
+
+    condition {
+      test     = "StringLike"
+      variable = "s3:prefix"
+      values   = ["uploads/*"]
+    }
+  }
+}
