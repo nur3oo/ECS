@@ -56,7 +56,7 @@ variable "ecr_repository_url" {
 
 variable "image_tag" {
   type    = string
-  default = "latest"
+  default = "v1"
 
 }
 
