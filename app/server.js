@@ -11,11 +11,11 @@ const port = process.env.PORT || 8080;
 // Needed so we can read JSON body from the browser
 app.use(express.json({ limit: "1mb" }));
 
-// ---- Required env vars ----
-const BUCKET = process.env.DOCS_BUCKET;                 // e.g. my-wiki-images
+
+const BUCKET = process.env.DOCS_BUCKET;                 
 const REGION = process.env.AWS_REGION || "eu-west-2";
 const UPLOADS_PREFIX = process.env.UPLOADS_PREFIX || "uploads/";
-const MAX_BYTES = Number(process.env.MAX_UPLOAD_BYTES || 25 * 1024 * 1024); // 25MB
+const MAX_BYTES = Number(process.env.MAX_UPLOAD_BYTES || 25 * 1024 * 1024); 
 
 if (!BUCKET) {
   console.warn("WARNING: DOCS_BUCKET env var is not set. /api/uploads/presign will fail.");
