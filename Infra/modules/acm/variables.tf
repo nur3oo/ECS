@@ -9,11 +9,4 @@ variable "domain_name" {
   default = "nur-trade.org"
 }
 
-variable "cloudflare_zone_id" {
-  type = string
-}
 
-variable "cloudfront_domain_name" {
-  type = string
-
-}
