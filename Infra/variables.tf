@@ -107,10 +107,6 @@ variable "docs_bucket_arn" {
 
 }
 
-variable "secret_name" {
-  type = string
-
-}
 
 variable "cloudflare_api_token" {
   type      = string

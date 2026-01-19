@@ -14,7 +14,6 @@ module "vpc" {
 module "iam" {
   source          = "./modules/iam"
   docs_bucket_arn = var.docs_bucket_arn
-  secret_name     = var.secret_name
   name            = var.name
   db_secret_arn   = module.rds.db_secret_arn
 }
@@ -48,8 +47,8 @@ module "ecs" {
   cluster_name          = var.cluster_name
   service_name          = var.service_name
   ecs_security_group_id = module.sg.ecs_security_group_id
-  task_role_arn         = module.iam.ecs_task_role_arn
-  execution_role_arn    = module.iam.ecs_task_execution_role_arn
+  task_role_arn         = module.iam.ecs_role_arn
+  execution_role_arn    = module.iam.ecs_task_execution_arn
   db_endpoint           = module.rds.db_endpoint
   db_secret_arn         = module.rds.db_secret_arn
 }
