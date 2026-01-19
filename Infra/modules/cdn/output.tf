@@ -1,11 +1,14 @@
 output "certificate_arn" {
-  value = aws_acm_certificate.cdn.arn
+  description = "Validated ACM certificate ARN in us-east-1 (use this in CloudFront viewer_certificate)"
+  value       = aws_acm_certificate_validation.cd_v.certificate_arn
 }
 
-output "acm_validation_options" {
-  value = aws_acm_certificate.cdn.domain_validation_options
+output "cloudfront_domain_name" {
+  description = "CloudFront distribution domain name (dxxxx.cloudfront.net) for DNS"
+  value       = aws_cloudfront_distribution.this.domain_name
 }
 
-output "acm_validation_records" {
-  value = aws_acm_certificate.cdn.domain_validation_options
+output "cloudfront_distribution_id" {
+  description = "CloudFront distribution ID"
+  value       = aws_cloudfront_distribution.this.id
 }

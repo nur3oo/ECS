@@ -59,13 +59,14 @@ module "s3" {
 }
 module "cdn" {
   source = "./modules/cdn"
+  cloudflare_api_token = module.acm.cloudflare_api_token
 }
 
 module "acm" {
   source               = "./modules/acm"
   domain_name          = var.domain_name
-  cloudflare_zone_id   = var.cloudflare_zone_id
   cloudflare_api_token = var.cloudflare_api_token
+
 }
 
 module "rds" {
@@ -75,3 +76,11 @@ module "rds" {
   private_subnet_ids    = module.vpc.private_subnet_ids
   name                  = var.name
 }
+
+module "cdn-distro" {
+  source = "./modules/cdn-distro"
+  alb_dns_name = module.alb.alb_dns_name
+  acm_cert_arn = module.cdn_cert.certificate_arn
+  cloudflare_zone_id = var.cloudflare_zone_id
+}
+

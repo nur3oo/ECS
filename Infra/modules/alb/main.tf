@@ -7,7 +7,7 @@ resource "aws_lb" "node_alb" {
 }
 // alb needs to be in pub sub
 resource "aws_lb_target_group" "tg" {
-  name        = var.alb_name
+  name        = "${var.alb_name}-tg"
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -30,14 +30,11 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    type = "redirect"
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tg.arn
   }
 }
+
 
 
 resource "aws_lb_listener" "https" {
