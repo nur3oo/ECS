@@ -20,7 +20,7 @@ resource "cloudflare_dns_record" "apex" {
   type    = "CNAME"
   ttl     = 60
   proxied = false
-  
+
 }
 
 

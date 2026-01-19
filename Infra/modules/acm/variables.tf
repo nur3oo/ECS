@@ -14,6 +14,6 @@ variable "cloudflare_zone_id" {
 }
 
 variable "cloudfront_domain_name" {
-  type    = string
- 
+  type = string
+
 }
