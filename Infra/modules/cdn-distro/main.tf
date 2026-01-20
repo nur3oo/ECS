@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "this" {
 }
 
 
-resource "cloudflare_record" "apex" {
+resource "cloudflare_dns_record" "apex" {
   zone_id = var.cloudflare_zone_id
   name    = "@"
   type    = "CNAME"

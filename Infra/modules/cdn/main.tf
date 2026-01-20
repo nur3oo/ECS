@@ -10,7 +10,7 @@ resource "aws_acm_certificate" "cdn" {
   }
 }
 
-resource "cloudflare_record" "cdn_validation" {
+resource "cloudflare_dns_record" "cdn_validation" {
   for_each = {
     for dvo in aws_acm_certificate.cdn.domain_validation_options :
     dvo.domain_name => {

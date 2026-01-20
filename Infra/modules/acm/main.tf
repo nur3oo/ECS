@@ -14,7 +14,7 @@ resource "aws_acm_certificate" "cert" {
 }
 
 
-resource "cloudflare_record" "acm_validation" {
+resource "cloudflare_dns_record" "acm_validation" {
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options :
     dvo.domain_name => {
