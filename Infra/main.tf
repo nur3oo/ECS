@@ -58,15 +58,17 @@ module "s3" {
   alb_dns_name = module.alb.alb_dns_name
 }
 module "cdn" {
-  source               = "./modules/cdn"
-  cloudflare_api_token = module.acm.cloudflare_api_token
+  source             = "./modules/cdn"
+  domain_name        = var.domain_name
+  cloudflare_zone_id = var.cloudflare_zone_id
+
 }
 
 module "acm" {
   source               = "./modules/acm"
   domain_name          = var.domain_name
   cloudflare_api_token = var.cloudflare_api_token
-
+  cloudflare_zone_id = var.cloudflare_zone_id
 }
 
 module "rds" {
@@ -80,7 +82,7 @@ module "rds" {
 module "cdn-distro" {
   source             = "./modules/cdn-distro"
   alb_dns_name       = module.alb.alb_dns_name
-  acm_cert_arn       = module.cdn_cert.certificate_arn
+  acm_cert_arn       = module.cdn.certificate_arn
   cloudflare_zone_id = var.cloudflare_zone_id
+  domain_name        = var.domain_name
 }
-

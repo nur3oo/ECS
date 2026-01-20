@@ -18,3 +18,13 @@ terraform {
 provider "aws" {
   region = "eu-west-2"
 }
+
+// added because of thhe cloudfront cert not working
+provider "aws" {
+  alias  = "use1"
+  region = "us-east-1"
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}

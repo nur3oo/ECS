@@ -32,6 +32,7 @@ resource "cloudflare_record" "cdn_validation" {
 resource "aws_acm_certificate_validation" "cd_v" {
   provider        = aws.use1
   certificate_arn = aws_acm_certificate.cdn.arn
+  validation_record_fqdns = [for r in cloudflare_record.cdn_validation : r.hostname]
 }
 
 
