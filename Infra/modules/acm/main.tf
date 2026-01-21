@@ -18,12 +18,14 @@ resource "aws_acm_certificate" "cert" {
 
 resource "cloudflare_dns_record" "acm_validation" {
   zone_id = var.cloudflare_zone_id
-  name    = var.domain_name
-  ttl     = 60
+
+  name    = trimsuffix(tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_name, ".")
   type    = "CNAME"
+  content = trimsuffix(tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_value, ".")
+
+  ttl     = 60
   proxied = false
 }
-
 
 
 resource "aws_acm_certificate_validation" "cert" {
