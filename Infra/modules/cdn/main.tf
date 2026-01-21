@@ -26,7 +26,7 @@ resource "aws_acm_certificate_validation" "cd_v" {
   certificate_arn         = aws_acm_certificate.cdn.arn
   validation_record_fqdns = [cloudflare_dns_record.acm_validation.name]
 }
-  
+
 
 
 
