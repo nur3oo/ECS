@@ -18,13 +18,13 @@ resource "aws_acm_certificate" "cert" {
 
 resource "cloudflare_dns_record" "acm_validation" {
   zone_id = var.cloudflare_zone_id
-  name = var.domain_name
-  ttl = 60
-  type = "CNAMEs"
+  name    = var.domain_name
+  ttl     = 60
+  type    = "CNAMEs"
   proxied = false
 }
 
-  
+
 
 resource "aws_acm_certificate_validation" "cert" {
   certificate_arn         = aws_acm_certificate.cert.arn

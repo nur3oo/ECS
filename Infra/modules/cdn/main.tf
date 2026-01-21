@@ -12,11 +12,11 @@ resource "aws_acm_certificate" "cdn" {
 
 
 
- resource "cloudflare_dns_record" "cdn_validation" {
+resource "cloudflare_dns_record" "cdn_validation" {
   zone_id = var.cloudflare_zone_id
-  name = var.domain_name
-  ttl = 60
-  type = "CNAME"
+  name    = var.domain_name
+  ttl     = 60
+  type    = "CNAME"
   proxied = false
 }
 
