@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "alb" {
   domain      = "origin.nur-trade.org"
-  types       = ["ISSUED"]
+  statuses    = ["ISSUED"]
   most_recent = true
 }
