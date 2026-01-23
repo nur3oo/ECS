@@ -3,7 +3,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   default_root_object = ""
 
-  aliases = [var.domain_name] # <-- Alternate domain name
+  aliases = [var.domain_name] 
 
   origin {
     domain_name = var.alb_dns_name
@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = var.acm_cert_arn
+    acm_certificate_arn      = data.aws_acm_certificate.cloudfront.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

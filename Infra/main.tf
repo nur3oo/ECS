@@ -21,7 +21,6 @@ module "iam" {
 module "alb" {
   source             = "./modules/alb"
   vpc_id             = module.vpc.vpc_id
-  certificate_arn    = module.acm.certificate_arn
   load_balancer_type = var.load_balancer_type
   container_port     = var.container_port
   alb_name           = var.alb_name
@@ -29,6 +28,7 @@ module "alb" {
   public_subnets_id  = module.vpc.public_subnet_ids
   matcher            = var.matcher
   health_check_path  = var.health_check_path
+  alb_cert_arn       = data.aws_acm_certificate.alb.arn
 }
 
 module "ecr" {

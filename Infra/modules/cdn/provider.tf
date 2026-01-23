@@ -5,6 +5,7 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = ">= 5.62.0"
+      configuration_aliases = [ aws.use1 ]
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"

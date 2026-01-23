@@ -1,4 +1,5 @@
-output "certificate_arn" {
-  description = "Validated ACM certificate ARN (ALB region)"
-  value       = aws_acm_certificate_validation.cert.certificate_arn
+output "alb_cert_arn" {
+  value = data.aws_acm_certificate.alb.arn
+  description = "the cert for my alb"
+  
 }
