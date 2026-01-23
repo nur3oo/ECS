@@ -127,10 +127,5 @@ variable "name" {
 
 }
 
-variable "certificate_arn" {
-  type = string
-
-}
-
 
 
