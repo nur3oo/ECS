@@ -12,7 +12,7 @@ variable "alb_dns_name" {
 }
 
 variable "aliases" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "cloudflare_api_token" {
