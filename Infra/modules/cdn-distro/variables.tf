@@ -13,6 +13,6 @@ variable "alb_dns_name" {
 
 variable "aliases" {
   type    = list(string)
-  default = ["nur-trade.org","www.nur-trade.org "]
-              
+  default = ["nur-trade.org", "www.nur-trade.org "]
+
 }
