@@ -46,7 +46,7 @@ variable "container_port" {
 
 variable "alb_cert_arn" {
   type = string
-  
+
 }
 
 
