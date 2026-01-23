@@ -28,7 +28,7 @@ module "alb" {
   public_subnets_id  = module.vpc.public_subnet_ids
   matcher            = var.matcher
   health_check_path  = var.health_check_path
-  alb_cert_arn       = data.aws_acm_certificate.alb.arn
+  alb_cert_arn       = var.alb_cert_arn
 }
 
 module "ecr" {
@@ -82,7 +82,8 @@ module "rds" {
 module "cdn-distro" {
   source             = "./modules/cdn-distro"
   alb_dns_name       = module.alb.alb_dns_name
-  acm_cert_arn       = module.cdn.certificate_arn
   cloudflare_zone_id = var.cloudflare_zone_id
   domain_name        = var.domain_name
+  certificate_arn    = var.certificate_arn
+
 }

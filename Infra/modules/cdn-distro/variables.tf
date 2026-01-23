@@ -3,9 +3,7 @@ variable "cloudflare_zone_id" {
 }
 
 
-variable "acm_cert_arn" {
-  type = string
-}
+
 
 variable "alb_dns_name" {
   type = string

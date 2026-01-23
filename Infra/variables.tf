@@ -60,6 +60,11 @@ variable "health_check_path" {
 
 }
 
+variable "alb_cert_arn" {
+  type = string
+
+}
+
 
 //ecs
 
@@ -119,6 +124,11 @@ variable "cloudflare_api_token" {
 variable "name" {
   type    = string
   default = "rds"
+
+}
+
+variable "certificate_arn" {
+  type = string
 
 }
 
