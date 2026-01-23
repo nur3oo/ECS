@@ -65,9 +65,9 @@ module "cdn" {
 }
 
 module "acm" {
-  source               = "./modules/acm"
-  domain_name          = var.domain_name
-  cloudflare_zone_id   = var.cloudflare_zone_id
+  source             = "./modules/acm"
+  domain_name        = var.domain_name
+  cloudflare_zone_id = var.cloudflare_zone_id
 }
 
 module "rds" {
@@ -79,11 +79,11 @@ module "rds" {
 }
 
 module "cdn-distro" {
-  source             = "./modules/cdn-distro"
-  alb_dns_name       = module.alb.alb_dns_name
-  cloudflare_zone_id = var.cloudflare_zone_id
-  certificate_arn    = module.cdn.certificate_arn
-  aliases            = var.aliases
+  source               = "./modules/cdn-distro"
+  alb_dns_name         = module.alb.alb_dns_name
+  cloudflare_zone_id   = var.cloudflare_zone_id
+  certificate_arn      = module.cdn.certificate_arn
+  aliases              = var.aliases
   cloudflare_api_token = var.cloudflare_api_token
 
 }
