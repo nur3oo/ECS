@@ -59,7 +59,7 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "db" {
-  name = "${var.name}/db.v12"
+  name = "${var.name}/db.v13"
 }
 
 resource "aws_secretsmanager_secret_version" "db" {
