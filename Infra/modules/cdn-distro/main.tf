@@ -3,7 +3,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   default_root_object = ""
 
-  aliases = var.aliases
+  aliases = [var.domain_name, "www.${var.domain_name}"]
 
   origin {
     domain_name = var.alb_dns_name
