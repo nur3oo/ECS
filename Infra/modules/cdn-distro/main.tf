@@ -3,7 +3,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   default_root_object = ""
 
-  aliases = [var.domain_name]
+  aliases = var.aliases
 
   origin {
     domain_name = var.alb_dns_name
@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "this" {
 
 resource "cloudflare_dns_record" "apex" {
   zone_id = var.cloudflare_zone_id
-  name    = "@"
+  name    = "nur-trade.org"
   type    = "CNAME"
   content = aws_cloudfront_distribution.this.domain_name
   ttl     = 60

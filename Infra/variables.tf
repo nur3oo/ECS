@@ -123,5 +123,13 @@ variable "name" {
 
 }
 
+//cdn distro
+
+variable "aliases" {
+  type = list(string)
+  default = ["nur-trade.org","www.nur-trade.org "]
+
+  
+}
 
 

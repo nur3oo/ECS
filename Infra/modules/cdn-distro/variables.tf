@@ -11,7 +11,8 @@ variable "alb_dns_name" {
 
 }
 
-variable "domain_name" {
-  type    = string
-  default = "nur-trade.org"
+variable "aliases" {
+  type    = list(string)
+  default = ["nur-trade.org","www.nur-trade.org "]
+              
 }
