@@ -60,10 +60,6 @@ variable "health_check_path" {
 
 }
 
-variable "alb_cert_arn" {
-  type = string
-
-}
 
 
 //ecs

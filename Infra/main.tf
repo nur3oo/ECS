@@ -28,7 +28,7 @@ module "alb" {
   public_subnets_id  = module.vpc.public_subnet_ids
   matcher            = var.matcher
   health_check_path  = var.health_check_path
-  alb_cert_arn       = var.alb_cert_arn
+  alb_cert_arn       = module.acm.alb_cert_arn
 }
 
 module "ecr" {
