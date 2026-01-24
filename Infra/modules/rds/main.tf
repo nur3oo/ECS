@@ -56,10 +56,14 @@ resource "aws_db_instance" "postgres" {
 resource "random_password" "db_password" {
   length  = 24
   special = false
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
+
 resource "aws_secretsmanager_secret" "db" {
-  name = "${var.name}/db.v14"
+  name = "${var.name}/db"
 }
 
 resource "aws_secretsmanager_secret_version" "db" {
