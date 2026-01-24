@@ -56,15 +56,16 @@ resource "aws_db_instance" "postgres" {
 resource "random_password" "db_password" {
   length  = 24
   special = false
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 
 resource "aws_secretsmanager_secret" "db" {
   name = "${var.name}/db"
+  lifecycle {
+    prevent_destroy = true
+  }
 }
+
 
 resource "aws_secretsmanager_secret_version" "db" {
   secret_id = aws_secretsmanager_secret.db.id
