@@ -60,10 +60,7 @@ resource "random_password" "db_password" {
 
 
 resource "aws_secretsmanager_secret" "db" {
-  name = "${var.name}/db"
-  lifecycle {
-    prevent_destroy = true
-  }
+  name = "${var.name}/db20"
 }
 
 
