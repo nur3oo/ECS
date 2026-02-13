@@ -1,27 +1,47 @@
-# deps
-FROM node:20-alpine AS deps
-WORKDIR /app
+ARG APP_PATH=/opt/outline
+ARG BASE_IMAGE=outlinewiki/outline-base
+FROM ${BASE_IMAGE} AS base
 
-# Copy both package.json + lock file 
-COPY app/package.json app/package-lock.json ./
-RUN npm install --omit=dev
+ARG APP_PATH
+WORKDIR $APP_PATH
 
-# runtime
-FROM node:20-alpine
-WORKDIR /app
+# ---
+FROM node:22.21.0-slim AS runner
 
+LABEL org.opencontainers.image.source="https://github.com/outline/outline"
+
+ARG APP_PATH
+WORKDIR $APP_PATH
 ENV NODE_ENV=production
-ENV PORT=8080
 
-COPY --from=deps /app/node_modules ./node_modules
+# Create a non-root user compatible with Debian and BusyBox based images
+RUN addgroup --gid 1001 nodejs && \
+    adduser --uid 1001 --ingroup nodejs nodejs && \
+    mkdir -p /var/lib/outline && \
+    chown -R nodejs:nodejs /var/lib/outline && \
+    chown -R nodejs:nodejs $APP_PATH
 
-# copy the app files
-COPY app/server.js ./server.js
-COPY app/public ./public
+COPY --from=base --chown=nodejs:nodejs $APP_PATH/build ./build
+COPY --from=base --chown=nodejs:nodejs $APP_PATH/server ./server
+COPY --from=base --chown=nodejs:nodejs $APP_PATH/public ./public
+COPY --from=base --chown=nodejs:nodejs $APP_PATH/.sequelizerc ./.sequelizerc
+COPY --from=base --chown=nodejs:nodejs $APP_PATH/node_modules ./node_modules
+COPY --from=base --chown=nodejs:nodejs $APP_PATH/package.json ./package.json
+# Install wget to healthcheck the server
+RUN  apt-get update \
+    && apt-get install -y wget \
+    && rm -rf /var/lib/apt/lists/*
 
+ENV FILE_STORAGE_LOCAL_ROOT_DIR=/var/lib/outline/data
+RUN mkdir -p "$FILE_STORAGE_LOCAL_ROOT_DIR" && \
+    chown -R nodejs:nodejs "$FILE_STORAGE_LOCAL_ROOT_DIR" && \
+    chmod 1777 "$FILE_STORAGE_LOCAL_ROOT_DIR"
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://127.0.0.1:8080/health', (r)=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
+VOLUME /var/lib/outline/data
 
-EXPOSE 8080
-CMD ["node", "server.js"]
+USER nodejs
+
+HEALTHCHECK --interval=1m CMD wget -qO- "http://localhost:${PORT:-3000}/_health" | grep -q "OK" || exit 1
+
+EXPOSE 3000
+CMD ["node", "build/server/index.js"]
