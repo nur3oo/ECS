@@ -37,7 +37,7 @@ variable "load_balancer_type" {
 
 variable "container_port" {
   type    = number
-  default = 8080
+  default = 3000
 }
 
 

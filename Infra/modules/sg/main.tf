@@ -46,8 +46,8 @@ resource "aws_security_group" "ECS" {
   ingress {
 
     description     = "ALB to the ECS"
-    from_port       = 8080
-    to_port         = 8080
+    from_port       = 3000
+    to_port         = 3000
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
 

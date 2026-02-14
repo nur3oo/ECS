@@ -4,7 +4,7 @@ variable "cluster_name" {
 
 variable "container_port" {
   type    = number
-  default = 8080
+  default = 3000
 }
 
 variable "container_name" {
