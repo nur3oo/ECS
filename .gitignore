@@ -1,5 +1,4 @@
 .env
-.env.*
 *node_modules
 .tfstate
 .tfstate*
@@ -28,3 +27,4 @@ secrets.*
 node_modules
 *.tfvars
 terraform.tfvars.env
+.env
