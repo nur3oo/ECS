@@ -1,6 +1,6 @@
 ## ECS Outline inspired project
 
-- Dockerised Node app (multi-stage build), pushed images to **ECR**
+- Dockerised app (multi-stage build), pushed images to **ECR**
 - Deployed on **ECS Fargate** behind an **ALB** (HTTP/HTTPS) with `/health` checks
 - Private **S3 uploads** via **pre-signed URLs**
 - **Integrated RDS (Postgres)** for persisted metadata (uploads/invites + future docs)
