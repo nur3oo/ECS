@@ -88,17 +88,50 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 
 - # Build and Push to ECR
 <img width="1853" height="962" alt="Screenshot 2026-01-09 150940" src="https://github.com/user-attachments/assets/58d38f9d-31a5-4b25-95ab-c7ecc95bf305" />
+
 # Terraform Plan
 <img width="1852" height="969" alt="Screenshot 2026-01-09 000732" src="https://github.com/user-attachments/assets/d47adbf9-0ebb-4d74-8576-4b657f00aaa4" />
-#Terraform Apply
+
+# Terraform Apply
+  
 <img width="1881" height="1013" alt="Screenshot 2026-01-09 150845" src="https://github.com/user-attachments/assets/ae314ab3-1fd1-436d-8e74-04c9f2b90b74" />
+
 # Terrafrom Destroy
+  
+
 <img width="1839" height="977" alt="Screenshot 2026-01-09 151207" src="https://github.com/user-attachments/assets/20290287-3bf0-4823-9aa6-63c175516e93" />
+
+## Run locally (Docker Compose)
+
+# 1) Build the Docker image (run from the repo root)
+- docker build -f docker/Dockerfile -t outline-runner .
+
+# 2) Create your local env file from the template
+- cp .env.example .env
+
+# 3) Generate required secrets (run both commands)
+- openssl rand -hex 32
+- openssl rand -hex 32
+
+# 4) Paste the two outputs into your .env file as:
+- SECRET_KEY=<first_output>
+- UTILS_SECRET=<second_output>
+
+# 5) Start Postgres + Redis + Outline
+- docker compose -f docker-compose.local.yml up -d
+
+# 6) Health check (should return 200 OK and "OK")
+- curl -i http://localhost:8080/_health
+
+# 7) To open the website
+- http://localhost:8080
+
+# 8) To stop everything
+- docker compose -f docker-compose.local.yml down
+
 
 # Improvments for the future
 - When I am modularising my work, have all the security groups for the ALB, RDS etc all in the Security group module and not seperated, half in one and half in another module.
 - Track usage, and scale for load.
-- 
-- 
-
+- Add a bash script that will generate the secrets for the users testing this locally which wiil save time. Instead of typing in the commands to create the secrets.
 
