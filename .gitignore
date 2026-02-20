@@ -27,4 +27,4 @@ override.tf.json
 secrets.*
 node_modules
 *.tfvars
-terraform.tfvars
+terraform.tfvars.env

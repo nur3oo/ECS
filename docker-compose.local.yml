@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: outline
+      POSTGRES_PASSWORD: outline
+      POSTGRES_DB: outline
+    ports:
+      - "5432:5432"
+    volumes:
+      - outline_pg:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  outline:
+    image: outline-runner
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8080:3000"
+    env_file:
+      - .env
+
+volumes:
+  outline_pg:
