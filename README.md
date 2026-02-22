@@ -101,7 +101,7 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 
 <img width="1839" height="977" alt="Screenshot 2026-01-09 151207" src="https://github.com/user-attachments/assets/20290287-3bf0-4823-9aa6-63c175516e93" />
 
-## Run locally (Docker Compose)
+## Run locally - Test it yourself! (Docker Compose)
 
 # 1) Build the Docker image (run from the repo root)
 - docker build -f docker/Dockerfile -t outline-runner .
