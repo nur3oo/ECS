@@ -86,11 +86,6 @@ variable "outline_url" {
 
 }
 
-variable "database_url" {
-  type = string
-}
-
-
 variable "container_name" {
   type    = string
   default = "nur-ecs"

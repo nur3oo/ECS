@@ -62,9 +62,11 @@ module "s3" {
 }
 module "cdn" {
   source      = "./modules/cdn"
+
+  providers = {
+    aws = aws.use1
+  }
   domain_name = var.domain_name
-
-
 }
 
 module "acm" {
