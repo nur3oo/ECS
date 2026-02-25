@@ -16,7 +16,7 @@ module "iam" {
   docs_bucket_arn = var.docs_bucket_arn
   name            = var.name
   db_secret_arn   = module.rds.db_secret_arn
-  app_secret_arn  = mod
+  app_secret_arn  = module.ecr.app_secret_arn
 }
 
 module "alb" {
@@ -50,7 +50,7 @@ module "ecs" {
   ecs_security_group_id = module.sg.ecs_security_group_id
   task_role_arn         = module.iam.ecs_role_arn
   execution_role_arn    = module.iam.ecs_task_execution_arn
-  db_endpoint           = module.rds.db_endpoint
+  db_endpoint           = module.rds.endpoint
   db_secret_arn         = module.rds.db_secret_arn
   app_secret_arn        = var.app_secret_arn
   outline_url           = var.outline_url
@@ -99,5 +99,5 @@ module "redis" {
   name                  = var.project_name
   vpc_id                = module.vpc.vpc_id
   private_subnet_ids    = module.vpc.private_subnet_ids
-  ecs_security_group_id = module.ecs_security_group_id # change this to your real ECS SG output
+  ecs_security_group_id = module.sg.ecs_security_group_id
 }
