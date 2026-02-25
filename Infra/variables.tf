@@ -83,7 +83,7 @@ variable "service_name" {
 }
 variable "outline_url" {
   default = "https://docs.nur-trade.org"
-  type = string
+  type    = string
 
 }
 
@@ -134,7 +134,7 @@ variable "name" {
 // redis
 
 variable "project_name" {
-  default = "redis"
+  default     = "redis"
   type        = string
   description = "name for all resources"
 }
