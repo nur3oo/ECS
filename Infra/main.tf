@@ -88,7 +88,6 @@ module "cdn-distro" {
   alb_dns_name         = module.alb.alb_dns_name
   cloudflare_zone_id   = var.cloudflare_zone_id
   certificate_arn      = module.cdn.certificate_arn
-  domain_name          = var.domain_name
   cloudflare_api_token = var.cloudflare_api_token
 
 }

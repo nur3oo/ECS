@@ -11,10 +11,6 @@ variable "alb_dns_name" {
 
 }
 
-variable "domain_name" {
-  type = string
-
-}
 variable "cloudflare_api_token" {
   type = string
 
