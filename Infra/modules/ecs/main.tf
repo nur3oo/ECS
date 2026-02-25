@@ -8,9 +8,6 @@ resource "aws_cloudwatch_log_group" "this" {
 }
 
 
-data "aws_secretsmanager_secret" "app" {
-  name = "outline_appsecrets"
-}
 
 resource "aws_ecs_task_definition" "main" {
   family                   = var.app
