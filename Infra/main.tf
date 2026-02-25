@@ -50,11 +50,9 @@ module "ecs" {
   ecs_security_group_id = module.sg.ecs_security_group_id
   task_role_arn         = module.iam.ecs_role_arn
   execution_role_arn    = module.iam.ecs_task_execution_arn
-  db_endpoint           = module.rds.endpoint
   db_secret_arn         = data.aws_secretsmanager_secret.app.arn
   app_secret_arn        = data.aws_secretsmanager_secret.app.arn
   outline_url           = var.outline_url
-  database_url          = var.database_url
   redis_url             = local.redis_url
 }
 
@@ -63,16 +61,16 @@ module "s3" {
   alb_dns_name = module.alb.alb_dns_name
 }
 module "cdn" {
-  source             = "./modules/cdn"
-  domain_name        = var.domain_name
-  cloudflare_zone_id = var.cloudflare_zone_id
+  source      = "./modules/cdn"
+  domain_name = var.domain_name
+
 
 }
 
 module "acm" {
-  source             = "./modules/acm"
-  domain_name        = var.domain_name
-  cloudflare_zone_id = var.cloudflare_zone_id
+  source      = "./modules/acm"
+  domain_name = var.domain_name
+
 }
 
 module "rds" {

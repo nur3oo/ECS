@@ -49,4 +49,3 @@ variable "alb_cert_arn" {
 
 }
 
-

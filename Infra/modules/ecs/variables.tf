@@ -79,10 +79,6 @@ variable "task_role_arn" {
 }
 
 
-variable "db_endpoint" {
-  type = string
-}
-
 variable "db_secret_arn" {
   type = string
 
@@ -96,11 +92,7 @@ variable "outline_url" {
   type = string
 }
 
-variable "database_url" {
-  type = string
-}
 
 variable "redis_url" {
-
   type = string
 }

@@ -81,24 +81,15 @@ variable "service_name" {
   default = "name"
 
 }
-
-variable "app_secret_arn" {
-  type = string
-
-}
-
 variable "outline_url" {
   type = string
 
 }
 
 variable "database_url" {
-
+  type = string
 }
 
-variable "redis_url" {
-
-}
 
 variable "container_name" {
   type    = string
