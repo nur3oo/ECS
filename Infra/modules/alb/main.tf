@@ -34,7 +34,7 @@ resource "aws_lb_listener" "http" {
     redirect {
       port        = "443"
       protocol    = "HTTPS"
-      status_code = "HTTPS_301"
+      status_code = "HTTP_301"
     }
   }
 }
@@ -44,7 +44,7 @@ resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.node_alb.arn
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn   = data.aws_acm_certificate.alb.arn
+  certificate_arn   = var.alb_cert_arn
 
   default_action {
     type             = "forward"
