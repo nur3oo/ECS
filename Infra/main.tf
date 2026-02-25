@@ -61,7 +61,7 @@ module "s3" {
   alb_dns_name = module.alb.alb_dns_name
 }
 module "cdn" {
-  source      = "./modules/cdn"
+  source = "./modules/cdn"
 
   providers = {
     aws = aws.use1
