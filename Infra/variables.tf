@@ -82,8 +82,29 @@ variable "service_name" {
 
 }
 
+variable "app_secret_arn" {
+  type = string
+  
+}
 
+variable "outline_url" {
+  type = string
+  
+}
 
+variable "database_url" {
+  
+}
+
+variable "redis_url" {
+  
+}
+
+variable "container_name" {
+  type = string
+  default = "nur-ecs"
+  
+}
 
 //acm
 
@@ -123,6 +144,10 @@ variable "name" {
 
 }
 
+// redis
 
-
+variable "project_name" {
+  type        = string
+  description = "name for all resources"
+}
 

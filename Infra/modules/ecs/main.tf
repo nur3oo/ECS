@@ -7,6 +7,11 @@ resource "aws_cloudwatch_log_group" "this" {
   retention_in_days = var.log_retention_in_days
 }
 
+
+data "aws_secretsmanager_secret" "app" {
+  name = "outline_appsecrets"
+}
+
 resource "aws_ecs_task_definition" "main" {
   family                   = var.app
   requires_compatibilities = ["FARGATE"]
@@ -26,21 +31,27 @@ resource "aws_ecs_task_definition" "main" {
       portMappings = [
         {
           containerPort = 3000
+          hostPort      = 3000
           protocol      = "tcp"
         }
       ]
 
-      environment = [
-        { name = "DB_HOST", value = var.db_endpoint },
-        { name = "DB_PORT", value = "5432" }
-      ]
+    environment = [
+  { name = "NODE_ENV", value = "production" },
+  { name = "PORT",     value = "3000" },
 
-      secrets = [
-        {
-          name      = "DB_SECRET_JSON"
-          valueFrom = var.db_secret_arn
-        }
-      ]
+  { name = "URL",       value = var.outline_url },
+  { name = "REDIS_URL", value = var.redis_url }
+]
+
+secrets = [
+  { name = "DATABASE_URL", valueFrom = "${var.db_secret_arn}:database_url::" },
+  { name = "SECRET_KEY",   valueFrom = "${var.app_secret_arn}:secret_key::" },
+  { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:utils_secret::" }
+]
+      
+    
+    
 
       logConfiguration = {
         logDriver = "awslogs"
@@ -53,6 +64,7 @@ resource "aws_ecs_task_definition" "main" {
     }
   ])
 }
+
 
 resource "aws_ecs_service" "main" {
   name            = var.service_name
@@ -75,3 +87,5 @@ resource "aws_ecs_service" "main" {
 
   health_check_grace_period_seconds = 30
 }
+
+

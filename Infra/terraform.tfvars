@@ -5,3 +5,5 @@ matcher = "200"
 health_check_path = "/health"
 
 container_port = 8080
+
+app_secret_arn = "arn:aws:secretsmanager:eu-west-2:447924746567:secret:outline_appsecrets-Y63aOS"

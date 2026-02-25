@@ -16,6 +16,7 @@ module "iam" {
   docs_bucket_arn = var.docs_bucket_arn
   name            = var.name
   db_secret_arn   = module.rds.db_secret_arn
+  app_secret_arn = mod
 }
 
 module "alb" {
@@ -41,7 +42,7 @@ module "ecs" {
   private_subnet_ids    = module.vpc.private_subnet_ids
   target_group_arn      = module.alb.target_group_arn
   ecr_repository_url    = module.ecr.repository_url
-  container_name        = "nur-ecs"
+  container_name        = var.container_name
   container_port        = var.container_port
   log_group_name        = var.log_group_name
   cluster_name          = var.cluster_name
@@ -51,6 +52,10 @@ module "ecs" {
   execution_role_arn    = module.iam.ecs_task_execution_arn
   db_endpoint           = module.rds.db_endpoint
   db_secret_arn         = module.rds.db_secret_arn
+  app_secret_arn        = var.app_secret_arn
+  outline_url           = var.outline_url
+  database_url          = var.database_url
+  redis_url             = local.redis_url 
 }
 
 module "s3" {
@@ -85,5 +90,14 @@ module "cdn-distro" {
   certificate_arn      = module.cdn.certificate_arn
   domain_name          = var.domain_name
   cloudflare_api_token = var.cloudflare_api_token
+  
+}
 
+module "redis" {
+  source = "./modules/redis"
+
+  name                  = var.project_name
+  vpc_id                = module.vpc.vpc_id
+  private_subnet_ids     = module.vpc.private_subnet_ids
+  ecs_security_group_id  = module.ecs_security_group_id  # change this to your real ECS SG output
 }

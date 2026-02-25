@@ -14,3 +14,8 @@ variable "db_secret_arn" {
   sensitive = true
 
 }
+
+variable "app_secret_arn" {
+  type = string
+  
+}
