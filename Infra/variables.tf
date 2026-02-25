@@ -84,26 +84,26 @@ variable "service_name" {
 
 variable "app_secret_arn" {
   type = string
-  
+
 }
 
 variable "outline_url" {
   type = string
-  
+
 }
 
 variable "database_url" {
-  
+
 }
 
 variable "redis_url" {
-  
+
 }
 
 variable "container_name" {
-  type = string
+  type    = string
   default = "nur-ecs"
-  
+
 }
 
 //acm

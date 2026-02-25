@@ -89,18 +89,18 @@ variable "db_secret_arn" {
 }
 
 variable "app_secret_arn" {
-  type = string  
+  type = string
 }
 
 variable "outline_url" {
-   type = string
- }
- 
-variable "database_url" { 
-  type = string 
+  type = string
+}
+
+variable "database_url" {
+  type = string
 }
 
 variable "redis_url" {
-  
-   type = string
-    }
+
+  type = string
+}

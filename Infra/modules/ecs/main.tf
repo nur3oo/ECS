@@ -36,22 +36,22 @@ resource "aws_ecs_task_definition" "main" {
         }
       ]
 
-    environment = [
-  { name = "NODE_ENV", value = "production" },
-  { name = "PORT",     value = "3000" },
+      environment = [
+        { name = "NODE_ENV", value = "production" },
+        { name = "PORT", value = "3000" },
 
-  { name = "URL",       value = var.outline_url },
-  { name = "REDIS_URL", value = var.redis_url }
-]
+        { name = "URL", value = var.outline_url },
+        { name = "REDIS_URL", value = var.redis_url }
+      ]
 
-secrets = [
-  { name = "DATABASE_URL", valueFrom = "${var.db_secret_arn}:database_url::" },
-  { name = "SECRET_KEY",   valueFrom = "${var.app_secret_arn}:secret_key::" },
-  { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:utils_secret::" }
-]
-      
-    
-    
+      secrets = [
+        { name = "DATABASE_URL", valueFrom = "${var.db_secret_arn}:database_url::" },
+        { name = "SECRET_KEY", valueFrom = "${var.app_secret_arn}:secret_key::" },
+        { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:utils_secret::" }
+      ]
+
+
+
 
       logConfiguration = {
         logDriver = "awslogs"

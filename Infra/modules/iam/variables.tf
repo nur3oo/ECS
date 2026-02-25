@@ -17,5 +17,5 @@ variable "db_secret_arn" {
 
 variable "app_secret_arn" {
   type = string
-  
+
 }

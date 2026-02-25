@@ -31,8 +31,8 @@ variable "engine_version" {
 }
 
 variable "port" {
-  type        = number
-  default     = 6379
+  type    = number
+  default = 6379
 }
 
 variable "multi_az_enabled" {

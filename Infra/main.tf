@@ -16,7 +16,7 @@ module "iam" {
   docs_bucket_arn = var.docs_bucket_arn
   name            = var.name
   db_secret_arn   = module.rds.db_secret_arn
-  app_secret_arn = mod
+  app_secret_arn  = mod
 }
 
 module "alb" {
@@ -55,7 +55,7 @@ module "ecs" {
   app_secret_arn        = var.app_secret_arn
   outline_url           = var.outline_url
   database_url          = var.database_url
-  redis_url             = local.redis_url 
+  redis_url             = local.redis_url
 }
 
 module "s3" {
@@ -90,7 +90,7 @@ module "cdn-distro" {
   certificate_arn      = module.cdn.certificate_arn
   domain_name          = var.domain_name
   cloudflare_api_token = var.cloudflare_api_token
-  
+
 }
 
 module "redis" {
@@ -98,6 +98,6 @@ module "redis" {
 
   name                  = var.project_name
   vpc_id                = module.vpc.vpc_id
-  private_subnet_ids     = module.vpc.private_subnet_ids
-  ecs_security_group_id  = module.ecs_security_group_id  # change this to your real ECS SG output
+  private_subnet_ids    = module.vpc.private_subnet_ids
+  ecs_security_group_id = module.ecs_security_group_id # change this to your real ECS SG output
 }

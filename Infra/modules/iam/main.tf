@@ -39,8 +39,8 @@ resource "aws_iam_policy" "ecs_read_db_secret" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect   = "Allow",
-      Action   = ["secretsmanager:GetSecretValue"],
+      Effect = "Allow",
+      Action = ["secretsmanager:GetSecretValue"],
       Resource = [
         var.db_secret_arn,
         var.app_secret_arn
