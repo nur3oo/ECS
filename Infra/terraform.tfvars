@@ -1,5 +1,3 @@
-app_secret_arn = "arn:aws:secretsmanager:eu-west-2:447924746567:secret:outline_appsecrets-Y63aOS"
-
 docs_bucket_arn = "arn:aws:s3:::my-wiki-images"
 
 matcher = "200"
