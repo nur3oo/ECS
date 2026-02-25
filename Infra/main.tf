@@ -16,7 +16,7 @@ module "iam" {
   docs_bucket_arn = var.docs_bucket_arn
   name            = var.name
   db_secret_arn   = module.rds.db_secret_arn
-  app_secret_arn  = module.ecr.app_secret_arn
+  app_secret_arn  = data.aws_secretsmanager_secret.app.arn
 }
 
 module "alb" {
