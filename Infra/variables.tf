@@ -139,3 +139,7 @@ variable "project_name" {
   description = "name for all resources"
 }
 
+variable "app_secret_arn" {
+  type      = string
+  sensitive = true
+}
