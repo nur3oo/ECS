@@ -95,13 +95,6 @@ variable "container_name" {
 
 //acm
 
-variable "domain_name" {
-  type    = string
-  default = "docs.nur-trade.org"
-}
-
-
-
 variable "cloudflare_zone_id" {
   type = string
 }
@@ -138,4 +131,3 @@ variable "project_name" {
   type        = string
   description = "name for all resources"
 }
-
