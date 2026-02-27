@@ -69,7 +69,7 @@ module "cdn" {
 }
 
 module "acm" {
-  source      = "./modules/acm"
+  source = "./modules/acm"
 }
 
 module "rds" {
