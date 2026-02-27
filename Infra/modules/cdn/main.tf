@@ -2,7 +2,7 @@
 
 data "aws_acm_certificate" "cloudfront" {
   provider    = aws.use1
-  domain      = var.domain_name
+  domain      = "nur-trade.org"
   statuses    = ["ISSUED"]
   most_recent = true
 }

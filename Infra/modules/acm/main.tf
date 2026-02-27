@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "alb" {
-  domain      = var.domain_name
+  domain      = "nur-trade.org"
   statuses    = ["ISSUED"]
   most_recent = true
 }
