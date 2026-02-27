@@ -82,7 +82,7 @@ variable "service_name" {
 
 }
 variable "outline_url" {
-  default = "https://docs.nur-trade.org"
+  default = "https://nur-trade.org"
   type    = string
 
 }

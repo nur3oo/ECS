@@ -19,13 +19,13 @@ variable "private_subnet_ids" {
 }
 
 variable "db_name" {
-  description = "Initial database name"
+  description = "database name"
   type        = string
   default     = "app"
 }
 
 variable "db_username" {
-  description = "Master username for the database"
+  description = "username for the database"
   type        = string
   default     = "appuser"
 }
@@ -37,7 +37,7 @@ variable "engine_version" {
 }
 
 variable "instance_class" {
-  description = "RDS instance class"
+  description = "rds instance class"
   type        = string
   default     = "db.t4g.micro"
 }
