@@ -29,6 +29,13 @@ resource "aws_security_group" "rds_sg" {
 }
 
 
+resource "random_password" "db" {
+  length  = 24
+  special = true
+}
+
+
+
 resource "aws_db_instance" "postgres" {
   identifier        = "${var.name}-postgres"
   engine            = "postgres"
@@ -60,17 +67,33 @@ resource "random_password" "db_password" {
 
 
 resource "aws_secretsmanager_secret" "db" {
-  name = "${var.name}/db22"
+  name = "${var.name}/db24"
 }
 
 
 resource "aws_secretsmanager_secret_version" "db" {
   secret_id = aws_secretsmanager_secret.db.id
+
   secret_string = jsonencode({
-    username = var.db_username
-    DB_HOST  = aws_db_instance.postgres.address
-    password = random_password.db_password.result
-    dbname   = var.db_name
-    port     = 5432
+    username     = var.db_username
+    DB_HOST      = aws_db_instance.postgres.address
+    password     = random_password.db_password.result
+    dbname       = var.db_name
+    port         = 5432
+
+    
+    database_url = "postgres://${var.db_username}:${random_password.db_password.result}@${aws_db_instance.postgres.address}:5432/${var.db_name}"
   })
 }
+
+
+// for my db
+resource "aws_secretsmanager_secret_version" "database_url" {
+
+  secret_id = aws_secretsmanager_secret.database_url.id
+  secret_string = jsonencode({
+    database_url = "postgres://${var.db_username}:${random_password.db.result}@${aws_db_instance.postgres.address}:5432/${var.db_name}"
+  })
+}
+
+//pass for my database url, was missing
