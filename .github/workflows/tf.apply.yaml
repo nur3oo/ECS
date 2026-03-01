@@ -47,9 +47,12 @@ jobs:
       - name: Terraform fmt (check)
         run: terraform fmt -check -recursive
 
+      - name: Terraform fmt
+        run: terraform fmt -recursive
+
+
       - name: Terraform init
         run: terraform init -upgrade -input=false
-
 
       - name: Terraform validate
         run: terraform validate
