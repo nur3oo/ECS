@@ -4,5 +4,5 @@ matcher = "200"
 
 health_check_path = "/health"
 
-container_port = 8080
+container_port = 3000
 
