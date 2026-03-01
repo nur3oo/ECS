@@ -86,14 +86,3 @@ resource "aws_secretsmanager_secret_version" "db" {
   })
 }
 
-
-// for my db
-resource "aws_secretsmanager_secret_version" "database_url" {
-
-  secret_id = aws_secretsmanager_secret.database_url.id
-  secret_string = jsonencode({
-    database_url = "postgres://${var.db_username}:${random_password.db.result}@${aws_db_instance.postgres.address}:5432/${var.db_name}"
-  })
-}
-
-//pass for my database url, was missing
