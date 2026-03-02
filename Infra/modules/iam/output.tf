@@ -1,4 +1,4 @@
-output "ecs_role_arn" {
+output "ecs_task_role_arn" {
   description = "ECS task role ARN (used by the app at runtime)"
   value       = aws_iam_role.ecs_task.arn
 }

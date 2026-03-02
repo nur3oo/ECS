@@ -48,7 +48,7 @@ module "ecs" {
   cluster_name          = var.cluster_name
   service_name          = var.service_name
   ecs_security_group_id = module.sg.ecs_security_group_id
-  task_role_arn         = module.iam.ecs_role_arn
+  task_role_arn         = module.iam.ecs_task_role_arn
   execution_role_arn    = module.iam.ecs_task_execution_arn
   db_secret_arn         = module.rds.db_secret_arn
   app_secret_arn        = data.aws_secretsmanager_secret.app.arn

@@ -15,53 +15,46 @@ resource "aws_ecs_task_definition" "main" {
   network_mode             = "awsvpc"
   cpu                      = 256
   memory                   = 512
-
   execution_role_arn = var.execution_role_arn
   task_role_arn      = var.task_role_arn
 
   container_definitions = jsonencode([
-    {
-      name      = var.container_name
-      image     = "${var.ecr_repository_url}:${var.image_tag}"
-      essential = true
+  {
+    name      = var.container_name
+    image     = "${var.ecr_repository_url}:${var.image_tag}"
+    essential = true
 
-      portMappings = [
-        {
-          containerPort = 3000
-          hostPort      = 3000
-          protocol      = "tcp"
-        }
-      ]
+    portMappings = [
+      {
+        containerPort = 3000
+        protocol      = "tcp"
+      }
+    ]
 
-      environment = [
-        { name = "NODE_ENV", value = "production" },
-        { name = "PORT", value = "3000" },
+  
+    environment = [
+      { name = "NODE_ENV", value = "production" },
+      { name = "PORT",     value = "3000" },
 
-        { name = "URL", value = var.outline_url },
-        { name = "REDIS_URL", value = var.redis_url }
-      ]
-
-      secrets = [
-        { name = "DATABASE_URL", valueFrom = "${var.db_secret_arn}:database_url::" },
-        { name = "SECRET_KEY", valueFrom = "${var.app_secret_arn}:secret_key::" },
-        { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:utils_secret::" }
-      ]
-
-
-
-
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          awslogs-group         = aws_cloudwatch_log_group.this.name
-          awslogs-region        = var.aws_region
-          awslogs-stream-prefix = var.container_name
-        }
+      { name = "URL",       value = var.outline_url },
+      { name = "REDIS_URL", value = var.redis_url },
+    ]
+    secrets = [
+  { name = "DATABASE_URL", valueFrom = "${var.db_secret_arn}:database_url::" },
+  { name = "SECRET_KEY",   valueFrom = "${var.app_secret_arn}:secret_key::" },
+  { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:utils_secret::" }
+]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = aws_cloudwatch_log_group.this.name
+        awslogs-region        = var.aws_region
+        awslogs-stream-prefix = var.container_name
       }
     }
-  ])
+  }
+])
 }
-
 
 resource "aws_ecs_service" "main" {
   name            = var.service_name
