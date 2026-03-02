@@ -97,23 +97,3 @@ variable "redis_url" {
   type = string
 }
 
-variable "db_host" {
-  description = "RDS hostname/address"
-  type        = string
-}
-
-variable "db_port" {
-  description = "RDS port"
-  type        = number
-  default     = 5432
-}
-
-variable "db_name" {
-  description = "Database name"
-  type        = string
-}
-
-variable "db_user" {
-  description = "Database username"
-  type        = string
-}
