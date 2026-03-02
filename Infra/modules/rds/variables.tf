@@ -6,6 +6,7 @@ variable "ecs_security_group_id" {
 variable "name" {
   description = "Project name"
   type        = string
+  default = "rds"
 }
 
 variable "vpc_id" {
