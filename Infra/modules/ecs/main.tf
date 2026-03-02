@@ -41,8 +41,8 @@ resource "aws_ecs_task_definition" "main" {
     ]
     secrets = [
   { name = "DATABASE_URL", valueFrom = "${var.db_secret_arn}:database_url::" },
-  { name = "SECRET_KEY",   valueFrom = "${var.app_secret_arn}:secret_key::" },
-  { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:utils_secret::" }
+  { name = "SECRET_KEY",   valueFrom = "${var.app_secret_arn}:SECRET_KEY::" },
+  { name = "UTILS_SECRET", valueFrom = "${var.app_secret_arn}:UTILS_SECRET::" }
 ]
     logConfiguration = {
       logDriver = "awslogs"
