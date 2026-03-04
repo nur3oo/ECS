@@ -55,10 +55,9 @@ variable "matcher" {
 
 variable "health_check_path" {
   type    = string
-  default = "/health/"
+  default = "/health"
 
 }
-
 
 
 //ecs

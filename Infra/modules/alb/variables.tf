@@ -34,7 +34,7 @@ variable "load_balancer_type" {
 
 variable "health_check_path" {
   type    = string
-  default = "/health/"
+  default = "/health"
 }
 
 

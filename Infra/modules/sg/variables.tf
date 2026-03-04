@@ -13,6 +13,7 @@ variable "name" {
 
 variable "protocol" {
   type = string
+  default = "tcp"
 
 }
 
