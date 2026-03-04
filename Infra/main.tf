@@ -23,7 +23,7 @@ module "alb" {
   source             = "./modules/alb"
   vpc_id             = module.vpc.vpc_id
   load_balancer_type = var.load_balancer_type
-  container_port     = var.container_port
+  containerPort =    var.containerPort
   alb_name           = var.alb_name
   alb_sg_id          = module.sg.alb_sg_id
   public_subnets_id  = module.vpc.public_subnet_ids

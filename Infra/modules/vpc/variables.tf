@@ -13,4 +13,3 @@ variable "subnet_count" {
 
 }
 
-

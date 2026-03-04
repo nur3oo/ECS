@@ -26,7 +26,6 @@ variable "private_subnet_cidrs" {
 
 }
 
-
 //alb
 
 variable "load_balancer_type" {
@@ -128,4 +127,10 @@ variable "project_name" {
   default     = "redis"
   type        = string
   description = "name for all resources"
+}
+
+variable "containerPort" {
+  type = string
+  default = 3000
+  
 }

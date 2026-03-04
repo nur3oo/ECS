@@ -2,7 +2,7 @@ variable "cluster_name" {
   type = string
 }
 
-variable "container_port" {
+variable "containerPort" {
   type    = number
   default = 3000
 }

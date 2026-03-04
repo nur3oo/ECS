@@ -38,10 +38,10 @@ variable "health_check_path" {
 }
 
 
-variable "container_port" {
-  type    = number
+variable "containerPort" {
+  type = string
   default = 3000
-
+  
 }
 
 variable "alb_cert_arn" {

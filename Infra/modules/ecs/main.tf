@@ -73,10 +73,10 @@ resource "aws_ecs_service" "main" {
   load_balancer {
     target_group_arn = var.target_group_arn
     container_name   = var.container_name
-    container_port   = var.container_port
+    container_port   = var.containerPort
   }
 
-  health_check_grace_period_seconds = 30
+  health_check_grace_period_seconds = 120
 }
 
 
