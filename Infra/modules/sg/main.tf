@@ -1,25 +1,21 @@
+//need this for my alb sg as it will only allow ips from cloudfront to hit the alb, noone can hit tbe alb origin first without cdn
+data "aws_ec2_managed_prefix_list" "cloudfront" {
+  name = "com.amazonaws.global.cloudfront.origin-facing"
+
+}
+
 resource "aws_security_group" "alb_sg" { //creates the sg
   name        = "${var.name}.sg"
   description = "ALB Security Group"
   vpc_id      = var.vpc_id
 
-
   ingress {
 
-    description = "http from the internet"
-    from_port   = 80
-    to_port     = 80
-    protocol    = var.protocol
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-
-    description = "https traffic from the internet" // allows https to the alb
+    description = "https traffic from the internet" // allows https to the alb from cloudfront ips only
     from_port   = 443
     to_port     = 443
-    protocol    = var.protocol
-    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "tcp"
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.cloudfront.id]
 
   }
 
@@ -66,6 +62,4 @@ resource "aws_security_group" "ECS" {
 
   }
 }
-
-
 

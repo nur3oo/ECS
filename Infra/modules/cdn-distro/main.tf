@@ -1,8 +1,6 @@
 resource "aws_cloudfront_distribution" "this" {
   enabled             = true
   is_ipv6_enabled     = true
-  default_root_object = ""
-
   aliases = ["nur-trade.org"]
 
   origin {
@@ -10,6 +8,7 @@ resource "aws_cloudfront_distribution" "this" {
     origin_id   = "alb-origin"
 
     custom_origin_config {
+    
       http_port              = 80
       https_port             = 443
       origin_protocol_policy = "https-only"
@@ -19,14 +18,14 @@ resource "aws_cloudfront_distribution" "this" {
 
   default_cache_behavior {
     target_origin_id       = "alb-origin"
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "https-only"
 
     allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods  = ["GET", "HEAD", "OPTIONS"]
-
-    forwarded_values {
+ 
+ forwarded_values {
       query_string = true
-      headers      = ["Host", "Authorization"] # adjust if needed
+      headers      = ["Host", "Authorization", "Origin", "Referer"]
       cookies {
         forward = "all"
       }
@@ -49,9 +48,9 @@ resource "aws_cloudfront_distribution" "this" {
 
 resource "cloudflare_dns_record" "apex" {
   zone_id = var.cloudflare_zone_id
-  name    = "docs"
+  name    = "@"
   type    = "CNAME"
   content = aws_cloudfront_distribution.this.domain_name
   ttl     = 60
-  proxied = false
+  proxied = true
 }

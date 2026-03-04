@@ -43,7 +43,7 @@ module "ecs" {
   target_group_arn      = module.alb.target_group_arn
   ecr_repository_url    = module.ecr.repository_url
   container_name        = var.container_name
-  container_port        = var.container_port
+  containerPort        = var.containerPort
   log_group_name        = var.log_group_name
   cluster_name          = var.cluster_name
   service_name          = var.service_name

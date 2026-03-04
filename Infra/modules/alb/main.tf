@@ -8,13 +8,13 @@ resource "aws_lb" "node_alb" {
 // alb needs to be in pub sub
 resource "aws_lb_target_group" "tg" {
   name        = "${var.alb_name}-tg"
-  port        = var.container_port
-  protocol    = "HTTP"
+  port        = var.containerPort
+  protocol    = "HTTPS"
   vpc_id      = var.vpc_id
   target_type = "ip"
 
     health_check {
-    protocol            = "HTTP"
+    protocol            = "HTTPS"
     port                = "traffic-port"
     path                = var.health_check_path
     matcher             = var.matcher
@@ -25,8 +25,8 @@ resource "aws_lb_target_group" "tg" {
   }
 }
 
-resource "aws_lb_listener_rule" "http_health_forward" {
-  listener_arn = aws_lb_listener.http.arn
+resource "aws_lb_listener_rule" "https_health_forward" {
+  listener_arn = aws_lb_listener.https.arn
   priority     = 10
 
   action {
@@ -37,21 +37,6 @@ resource "aws_lb_listener_rule" "http_health_forward" {
   condition {
     path_pattern {
       values = ["/health", "/health*"]
-    }
-  }
-}
-
-resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.node_alb.arn
-  port              = 80
-  protocol          = "HTTP"
-
-  default_action {
-    type = "redirect"
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
     }
   }
 }
