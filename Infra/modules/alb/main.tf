@@ -13,7 +13,9 @@ resource "aws_lb_target_group" "tg" {
   vpc_id      = var.vpc_id
   target_type = "ip"
 
-  health_check {
+    health_check {
+    protocol            = "HTTP"
+    port                = "traffic-port"
     path                = var.health_check_path
     matcher             = var.matcher
     interval            = 30
@@ -21,7 +23,6 @@ resource "aws_lb_target_group" "tg" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
   }
-
 }
 
 resource "aws_lb_listener" "http" {

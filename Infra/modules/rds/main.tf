@@ -67,7 +67,7 @@ resource "random_password" "db_password" {
 
 
 resource "aws_secretsmanager_secret" "db" {
-  name = "${var.name}/5"
+  name = "${var.name}/6"
 }
 
 
