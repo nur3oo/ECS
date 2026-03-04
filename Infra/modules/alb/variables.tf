@@ -21,7 +21,7 @@ variable "public_subnets_id" {
 
 variable "matcher" {
   type    = string
-  default = "200"
+  default = "200-399"
 
 }
 
@@ -34,7 +34,7 @@ variable "load_balancer_type" {
 
 variable "health_check_path" {
   type    = string
-  default = "/health"
+  default = "/health/"
 }
 
 
