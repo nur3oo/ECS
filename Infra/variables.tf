@@ -27,7 +27,6 @@ variable "private_subnet_cidrs" {
 }
 
 
-
 //alb
 
 variable "load_balancer_type" {
@@ -51,12 +50,12 @@ variable "alb_name" {
 
 variable "matcher" {
   type    = string
-  default = "200"
+  default = "200-399"
 }
 
 variable "health_check_path" {
   type    = string
-  default = "/health"
+  default = "/health/"
 
 }
 
