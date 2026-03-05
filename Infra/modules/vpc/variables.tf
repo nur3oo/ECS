@@ -3,13 +3,14 @@ variable "private_subnet_cidrs" {
 
 }
 
-variable "public_subent_cidrs" {
+variable "public_subnet_cidrs" {
   type = list(any)
 
 }
 
 variable "subnet_count" {
   type = number
+  default = 2
 
 }
 

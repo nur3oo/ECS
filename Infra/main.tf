@@ -7,7 +7,7 @@ module "sg" {
 module "vpc" {
   source               = "./modules/vpc"
   subnet_count         = var.subnet_count
-  public_subent_cidrs  = var.public_subent_cidrs
+  public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
 }
 
@@ -34,7 +34,6 @@ module "alb" {
 
 module "ecr" {
   source = "./modules/ecr"
-
 }
 
 module "ecs" {
