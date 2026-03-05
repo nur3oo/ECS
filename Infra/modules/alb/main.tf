@@ -25,22 +25,6 @@ resource "aws_lb_target_group" "tg" {
   }
 }
 
-resource "aws_lb_listener_rule" "https_health_forward" {
-  listener_arn = aws_lb_listener.https.arn
-  priority     = 10
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.tg.arn
-  }
-
-  condition {
-    path_pattern {
-      values = ["/health", "/health*"]
-    }
-  }
-}
-
 resource "aws_lb_listener" "https" {
 
   load_balancer_arn = aws_lb.node_alb.arn
