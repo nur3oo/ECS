@@ -52,5 +52,5 @@ resource "cloudflare_dns_record" "apex" {
   type    = "CNAME"
   content = aws_cloudfront_distribution.this.domain_name
   ttl     = 1
-  proxied = true
+  proxied = false
 }
