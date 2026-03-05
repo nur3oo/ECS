@@ -9,12 +9,12 @@ resource "aws_lb" "node_alb" {
 resource "aws_lb_target_group" "tg" {
   name        = "${var.alb_name}-tg"
   port        = var.containerPort
-  protocol    = "HTTPS"
+  protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
 
     health_check {
-    protocol            = "HTTPS"
+    protocol            = "HTTP"
     port                = "traffic-port"
     path                = var.health_check_path
     matcher             = var.matcher
