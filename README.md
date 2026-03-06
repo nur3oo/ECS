@@ -2,6 +2,7 @@
 
 - Dockerised app (multi-stage build), pushed images to **ECR**
 - Deployed on **ECS Fargate** behind an **ALB** (HTTP/HTTPS) with `/health` checks
+- Cloudfront as first point of entry for reduced latency.
 - Private **S3 uploads** via **pre-signed URLs**
 - **Integrated RDS (Postgres)** for persisted metadata (uploads/invites + future docs)
 - **ACM TLS** + **Cloudflare DNS** (DNS validation)
