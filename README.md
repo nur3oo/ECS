@@ -101,6 +101,11 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 
 <img width="1839" height="977" alt="Screenshot 2026-01-09 151207" src="https://github.com/user-attachments/assets/20290287-3bf0-4823-9aa6-63c175516e93" />
 
+# Finished version of the app with my URL
+
+<img width="1866" height="1056" alt="Screenshot 2026-03-06 135034" src="https://github.com/user-attachments/assets/d21ab65c-2e94-48a1-a98f-d6e2153d17b6" />
+
+
 ## Run locally - Test it yourself! (Docker Compose)
 
 # 1) Build the Docker image (run from the repo root)
@@ -134,6 +139,6 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 - When I am modularising my work, have all the security groups for the ALB, RDS etc all in the Security group module and not seperated, half in one and half in another module.
 - Track usage, and scale for load.
 - Add a bash script that will generate the secrets for the users testing this locally which wiil save time. Instead of typing in the commands to create the secrets.
-
-# ecsv2
-# ecsv2
+- Use a VPC Endpoint instead of a NAT Gateway to reduce costs.
+- Separate environments (dev/stage/prod) with Terraform workspaces or env folders.
+- Blue/Green or Canary deployments instead of pushing to production.
