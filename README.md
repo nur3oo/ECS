@@ -155,35 +155,6 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 <img width="1866" height="1056" alt="Screenshot 2026-03-06 135034" src="https://github.com/user-attachments/assets/d21ab65c-2e94-48a1-a98f-d6e2153d17b6" />
 
 
-## Run locally - Test it yourself! (Docker Compose)
-
-# 1) Build the Docker image (run from the repo root)
-- docker build -f docker/Dockerfile -t outline-runner .
-
-# 2) Create your local env file from the template
-- cp .env.example .env
-
-# 3) Generate required secrets (run both commands)
-- openssl rand -hex 32
-- openssl rand -hex 32
-
-# 4) Paste the two outputs into your .env file as:
-- SECRET_KEY=<first_output>
-- UTILS_SECRET=<second_output>
-
-# 5) Start Postgres + Redis + Outline
-- docker compose -f docker-compose.local.yml up -d
-
-# 6) Health check (should return 200 OK and "OK")
-- curl -i http://localhost:8080/_health
-
-# 7) To open the website
-- http://localhost:8080
-
-# 8) To stop everything
-- docker compose -f docker-compose.local.yml down
-
-
 # Improvments for the future
 - When I am modularising my work, have all the security groups for the ALB, RDS etc all in the Security group module and not seperated, half in one and half in another module.
 - Track usage, and scale for load.
