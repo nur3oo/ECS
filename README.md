@@ -10,6 +10,8 @@
 
 ## Architecture Overview
 
+# Users → Internet → CloudFront → ALB → ECS
+
 • Live URL
 https://nur-trade.org
 
