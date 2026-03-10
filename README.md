@@ -163,4 +163,4 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 - Add a bash script that will generate the secrets for the users testing this locally which wiil save time. Instead of typing in the commands to create the secrets.
 - Use a VPC Endpoint instead of a NAT Gateway to reduce costs.
 - Separate environments (dev/stage/prod) with Terraform workspaces or env folders.
-- Blue/Green or Canary deployments instead of pushing to production.
+- Blue/Green or Canary deployments instead of pushing to main.
