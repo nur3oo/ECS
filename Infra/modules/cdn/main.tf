@@ -1,4 +1,4 @@
-// importing the cloudfront cert here
+// looking up the cloudfront cert here
 
 data "aws_acm_certificate" "cloudfront" {
   provider    = aws.use1
