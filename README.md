@@ -1,12 +1,14 @@
-## ECS Outline inspired project
-- Dockerised app (multi-stage build), pushed images to **ECR**
-- Deployed on **ECS Fargate** behind an **ALB** (HTTP/HTTPS) with `/health` checks
-- Cloudfront as first point of entry for reduced latency.
-- Private **S3 uploads** via **pre-signed URLs**
-- **Integrated RDS (Postgres)** for persisted metadata (uploads/invites + future docs)
-- **ACM TLS** + **Cloudflare DNS** (DNS validation)
-- **Terraform modules** + remote **S3 state backend** with state locking enabled
-- **GitHub Actions OIDC** for deploys — **no static AWS keys**
+## ECS URL Shortener Project
+
+- Dockerised **URL shortener API** using multi stage builds with images stored in **ECR**
+- Deployed on **ECS Fargate** behind an **Application Load Balancer ALB** with HTTP and HTTPS and health checks
+- Blue and green deployments using **CodeDeploy** for zero downtime releases and safe traffic shifting
+- **AWS WAF** attached to ALB with managed rules and rate limiting for protection against common web exploits
+- Fully private networking with no NAT Gateway using **VPC Endpoints** for ECR S3 and CloudWatch
+- **RDS PostgreSQL** for persistent storage of shortened URLs and metadata
+- **ACM TLS certificates** with **Cloudflare DNS** using DNS validation for HTTPS
+- Modular **Terraform infrastructure** with remote S3 backend and state locking enabled
+- **GitHub Actions and OIDC** for CI CD with no long lived AWS credentials
 
 ## Architecture Overview
 
