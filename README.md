@@ -1,13 +1,12 @@
-## ECS URL Shortener Project
+## ECS Outline Wiki Project
 
-- Dockerised **URL shortener API** using multi stage builds with images stored in **ECR**
+- Dockerised Outline Wiki app using multi stage builds with images stored in **ECR**
 - Deployed on **ECS Fargate** behind an **Application Load Balancer ALB** with HTTP and HTTPS and health checks
-- Blue and green deployments using **CodeDeploy** for zero downtime releases and safe traffic shifting
-- **AWS WAF** attached to ALB with managed rules and rate limiting for protection against common web exploits
-- Fully private networking with no NAT Gateway using **VPC Endpoints** for ECR S3 and CloudWatch
+- **CloudFront** as the edge entry point for low latency global access
 - **RDS PostgreSQL** for persistent storage of shortened URLs and metadata
+- Secure uploads using pre signed S3 URLs with no public bucket access
 - **ACM TLS certificates** with **Cloudflare DNS** using DNS validation for HTTPS
-- Modular **Terraform infrastructure** with remote S3 backend and state locking enabled
+- Modular **Terraform infrastructure** with remote S3 backend and state locking using DynamoDB
 - **GitHub Actions and OIDC** for CI CD with no long lived AWS credentials
 
 ## Architecture Overview
