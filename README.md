@@ -3,7 +3,7 @@
 - Dockerised Outline Wiki app using multi stage builds with images stored in **ECR**
 - Deployed on **ECS Fargate** behind an **Application Load Balancer ALB** with HTTP and HTTPS and health checks
 - **CloudFront** as the edge entry point for low latency global access
-- **RDS PostgreSQL** for persistent storage of shortened URLs and metadata
+- **RDS PostgreSQL** for persistent storage.
 - Secure uploads using pre signed S3 URLs with no public bucket access
 - **ACM TLS certificates** with **Cloudflare DNS** using DNS validation for HTTPS
 - Modular **Terraform infrastructure** with remote S3 backend and state locking using DynamoDB
