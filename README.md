@@ -6,7 +6,7 @@
 - **RDS PostgreSQL** for persistent storage.
 - Secure uploads using pre signed S3 URLs with no public bucket access
 - **ACM TLS certificates** with **Cloudflare DNS** using DNS validation for HTTPS
-- Modular **Terraform infrastructure** with remote S3 backend and state locking using DynamoDB
+- Modular **Terraform infrastructure** with remote S3 backend and state locking.
 - **GitHub Actions and OIDC** for CI CD with no long lived AWS credentials
 
 ## Architecture Overview
