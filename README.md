@@ -161,7 +161,7 @@ Manual trigger (`workflow_dispatch`) for safe teardown:
 # Improvments for the future
 - When I am modularising my work, have all the security groups for the ALB, RDS etc all in the Security group module and not seperated, half in one and half in another module.
 - Track usage, and scale for load.
-- Add a bash script that will generate the secrets for the users testing this locally which wiil save time. Instead of typing in the commands to create the secrets.
+- Add a bash script that will generate the secrets for the users testing this locally which will save time. Instead of typing in the commands to create the secrets.
 - Use a VPC Endpoint instead of a NAT Gateway to reduce costs.
 - Separate environments (dev/stage/prod) with Terraform workspaces or env folders.
 - Blue/Green or Canary deployments instead of pushing to main.
